@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "codecademy-mealwise"
+version = "0.1.0"
+description = "A web app to help a restaurant keep track of its inventory throughout the day. Capstone project for Codecademy Django course."
+authors = ["James Walters <33947683+iamjameswalters@users.noreply.github.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Django = "^3.2.9"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
