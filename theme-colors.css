@@ -1,0 +1,17 @@
+/* Color Classes */
+.mealwise-darkgreen { color: #1E9453; }
+.mealwise-green { color: #43E08A; }
+.mealwise-lightgreen { color: #66FFAB; }
+.mealwise-darkred { color: #941A0F; }
+.mealwise-lightred { color: #E05043; }
+.mealwise-black { color: #04150c;}
+.mealwise-white { color: #fbfefc;}
+
+/* Background Color Classes */
+.mealwise-bg-darkgreen { background-color: #1E9453; }
+.mealwise-bg-green { background-color: #43E08A; }
+.mealwise-bg-lightgreen { background-color: #66FFAB; }
+.mealwise-bg-darkred { background-color: #941A0F; }
+.mealwise-bg-lightred { background-color: #E05043; }
+.mealwise-bg-black { background-color: #04150c;}
+.mealwise-bg-white { background-color: #fbfefc;}
