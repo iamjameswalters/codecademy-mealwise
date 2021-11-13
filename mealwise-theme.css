@@ -15,3 +15,7 @@
 .mealwise-bg-lightred { background-color: #E05043; }
 .mealwise-bg-black { background-color: #04150c;}
 .mealwise-bg-white { background-color: #fbfefc;}
+
+body {
+  font-family: Nunito, Arial, sans-serif;
+}
