@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+<h1>Pantry</h1>
+
+<table>
+  <tr>
+    <th>Ingredient</th>
+    <th>Quantity</th>
+    <th>Price per unit</th>
+    <th>Edit Item</th>
+  </tr>
+  {% for ingredient in object_list %}
+  <tr>
+    <td>
+      {{ ingredient.name }}
+    </td>
+    <td>
+      {{ ingredient.quantity }} {{ ingredient.unit }}(s)
+    </td>
+    <td>
+      ${{ ingredient.price_per_unit }} / {{ ingredient.unit }}
+    </td>
+    <td>
+      <a href="{% url 'update_ingredient' ingredient.id %}">Edit</a>
+      <a href="{% url 'delete_ingredient' ingredient.id %}">Delete</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+<ul>
+<li><a href="{% url 'create_ingredient' %}">Create Ingredient Record</a></li>
+</ul>

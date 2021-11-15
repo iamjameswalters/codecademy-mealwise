@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+<h1>Menu Items</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Edit Item</th>
+  </tr>
+  {% for menu_item in object_list %}
+  <tr>
+    <td>
+      {{ menu_item.name }}
+    </td>
+    <td>
+      ${{ menu_item.price }}
+    </td>
+    <td>
+      <a href="{% url 'update_menu_item' menu_item.id %}">Edit</a>
+      <a href="{% url 'delete_menu_item' menu_item.id %}">Delete</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+<ul>
+<li><a href="{% url 'create_menu_item' %}">Create Menu Item</a></li>
+</ul>
