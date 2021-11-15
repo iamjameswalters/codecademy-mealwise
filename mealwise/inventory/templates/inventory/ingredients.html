@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% block content %}
 <h1>Pantry</h1>
 
 <table>
@@ -31,3 +32,4 @@
 <ul>
 <li><a href="{% url 'create_ingredient' %}">Create Ingredient Record</a></li>
 </ul>
+{% endblock %}
