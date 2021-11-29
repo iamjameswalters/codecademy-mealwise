@@ -10,12 +10,18 @@ class Ingredient(models.Model):
     def __str__(self):
         return "{} ingredient".format(self.name)
 
+    def get_absolute_url(self):
+        return "/ingredients"
+
 class MenuItem(models.Model):
     name = models.CharField(max_length=50, unique=True)
     price = models.DecimalField(max_digits=4, decimal_places=2, default=0.00)
 
     def __str__(self):
         return "{} menu item".format(self.name)
+
+    def get_absolute_url(self):
+        return "/menu"
 
 class RecipeRequirement(models.Model):
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
@@ -25,9 +31,15 @@ class RecipeRequirement(models.Model):
     def __str__(self):
         return "{ing} requirement for {menu}".format(ing=self.ingredient.name, menu=self.menu_item.name)
 
+    def get_absolute_url(self):
+        return "/recipes"
+
 class Purchase(models.Model):
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return "Order for {}".format(self.menu_item.name)
+
+    def get_absolute_url(self):
+        return "/purchases"
