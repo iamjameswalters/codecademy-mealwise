@@ -2,6 +2,7 @@
 {% block content %}
 <h2>Modify menu item</h2>
 <form action="" method="POST">
+  {% csrf_token %}
   <div>
     {{ form.as_p }}
     <input type="submit" value="Submit" />
