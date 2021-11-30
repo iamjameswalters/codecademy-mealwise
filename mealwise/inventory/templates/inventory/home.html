@@ -1,4 +1,26 @@
-{% extends 'base.html' %}
-{% block content %}
-<h1>Mealwise<sub>Mind your peas and queues</sub></h1>
+{% extends 'base.html' %} {% block content %}
+
+<div class="p-5 mb-4 mt-4 mealwise-bg-lightgreen rounded-3">
+  <div class="container py-3">
+    <h1 class="display-3 fw-bold text-center">
+      meal<span
+        _="init wait 1500ms
+           transition 'color' to #E05043 over 3s
+           end"
+        >wise</span
+      >
+    </h1>
+    <p class="text-center lead fs-3 my-4">
+      <span class="rounded-3 mealwise-bg-white p-2">
+        Mind your peas and queues.
+      </span>
+    </p>
+    <p class="col-md-8 fs-4">
+      Using a series of utilities, you can create this jumbotron, just like the
+      one in previous versions of Bootstrap. Check out the examples below for
+      how you can remix and restyle it to your liking.
+    </p>
+    <button class="btn btn-primary btn-lg" type="button">Example button</button>
+  </div>
+</div>
 {% endblock %}
