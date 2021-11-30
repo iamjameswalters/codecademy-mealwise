@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
 from django.views.generic.base import TemplateView
@@ -16,6 +17,45 @@ class Robots(TemplateView):
 class HomeView(TemplateView):
   template_name = "inventory/home.html"
   extra_context = {'active_nav_home': "active"}
+
+# Report view
+
+class ReportView(TemplateView):
+  template_name = "inventory/report.html"
+
+  def get_context_data(self, **kwargs):
+    # Run default context method first
+    context = super().get_context_data(**kwargs)
+    
+    # Create purchase queryset
+    purchase_queryset = models.Purchase.objects.all()
+
+    # Calculate revenue
+    total_revenue = Decimal()
+    for purchase in purchase_queryset:
+      total_revenue += purchase.menu_item.price
+    context['revenue'] = total_revenue
+    
+    # Calculate costs
+    cost = Decimal()
+    for purchase in purchase_queryset:
+      ingredients_cost = Decimal()
+      recipe = purchase.menu_item.reciperequirement_set.all()
+      for recipe_requirement in recipe:
+        ingredient_cost = recipe_requirement.ingredient.price_per_unit
+        quantity = Decimal(recipe_requirement.quantity)
+        ingredients_cost += ingredient_cost * quantity
+      cost += ingredients_cost
+    context['costs'] = cost
+
+    # Calculate profit
+    profit = total_revenue - cost
+    context['profit'] = profit
+
+    # Add active navbar class
+    context['active_nav_report'] = 'active'
+
+    return context
 
 # List views
 

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="col-6 mx-auto">
+  <h1 class="text-center">Report</h1>
+<table class="table table-hover ">
+  <tr class="table-info">
+<th>Total Revenue <i>(cash coming in)</i></th>
+<th>${{ revenue }}</th>
+  </tr>
+  <tr class="border-3 border-top-0 border-start-0 border-end-0 border-dark">
+    <th>Total Costs <i>(money spent on pantry)</i></th>
+    <th>${{ costs }}</th>
+  </tr>
+  <tr class="table-success">
+    <th>Profit <i>(cash in your pocket!)</i></th>
+    <th>${{ profit }}</th>
+  </tr>
+</table>
+</div>
+{% endblock %}
