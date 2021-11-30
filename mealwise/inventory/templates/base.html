@@ -38,15 +38,15 @@
         <div class="collapse navbar-collapse" id="collapseNavTarget">
           <div class="navbar-nav">
             <a
-              class="nav-link active"
+              class="nav-link {{ active_nav_home }}"
               aria-current="page"
               href="{% url 'home' %}"
               >Home</a
             >
-            <a class="nav-link" href="{% url 'menu' %}">Menu</a>
-            <a class="nav-link" href="{% url 'recipes' %}">Recipes</a>
-            <a class="nav-link" href="{% url 'ingredients' %}">Pantry</a>
-            <a class="nav-link" href="{% url 'purchases' %}">Purchases</a>
+            <a class="nav-link {{ active_nav_menu }}" href="{% url 'menu' %}">Menu</a>
+            <a class="nav-link {{ active_nav_recipes }}" href="{% url 'recipes' %}">Recipes</a>
+            <a class="nav-link {{ active_nav_pantry }}" href="{% url 'ingredients' %}">Pantry</a>
+            <a class="nav-link {{ active_nav_purchases }}" href="{% url 'purchases' %}">Purchases</a>
           </div>
         </div>
       </div>
