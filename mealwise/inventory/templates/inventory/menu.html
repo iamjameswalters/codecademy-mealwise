@@ -3,7 +3,7 @@
 {% block content %}
 <h1>Menu Items</h1>
 
-<table>
+<table class="table">
   <tr>
     <th>Name</th>
     <th>Price</th>
@@ -18,14 +18,16 @@
       ${{ menu_item.price }}
     </td>
     <td>
-      <a href="{% url 'update_menu_item' menu_item.id %}">Edit</a>
-      <a href="{% url 'delete_menu_item' menu_item.id %}">Delete</a>
+      <div class="btn-group" role="group">
+      <a href="{% url 'update_menu_item' menu_item.id %}" class="btn btn-primary">Edit</a>
+      <a href="{% url 'delete_menu_item' menu_item.id %}" class="btn btn-danger">Delete</a>
+      </div>
     </td>
   </tr>
   {% endfor %}
 </table>
 
-<ul>
-<li><a href="{% url 'create_menu_item' %}">Create Menu Item</a></li>
-</ul>
+
+<a href="{% url 'create_menu_item' %}" class="btn mealwise-bg-darkgreen mealwise-white">Create Menu Item</a>
+
 {% endblock %}

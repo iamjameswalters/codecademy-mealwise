@@ -3,7 +3,7 @@
 {% block content %}
 <h1>Purchases</h1>
 
-<table>
+<table class="table">
   <tr>
     <th>Item</th>
     <th>Order Time</th>
@@ -18,14 +18,14 @@
       {{ purchase.time }}
     </td>
     <td>
-      <a href="{% url 'update_purchase' purchase.id %}">Edit</a>
-      <a href="{% url 'delete_purchase' purchase.id %}">Delete</a>
+      <div class="btn-group">
+      <a href="{% url 'update_purchase' purchase.id %}" class="btn btn-primary">Edit</a>
+      <a href="{% url 'delete_purchase' purchase.id %}" class="btn btn-danger">Delete</a>
+      </div>
     </td>
   </tr>
   {% endfor %}
 </table>
 
-<ul>
-<li><a href="{% url 'create_purchase' %}">Create Purchase</a></li>
-</ul>
+<a href="{% url 'create_purchase' %}" class="btn mealwise-bg-darkgreen mealwise-white">Create Purchase</a>
 {% endblock %}

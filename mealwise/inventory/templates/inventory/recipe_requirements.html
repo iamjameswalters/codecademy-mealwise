@@ -3,7 +3,7 @@
 {% block content %}
 <h1>Recipe Requirements</h1>
 
-<table>
+<table class="table">
   <tr>
     <th>Menu Item</th>
     <th>Ingredient</th>
@@ -22,14 +22,16 @@
       {{ recipe_req.quantity }} {{ recipe_req.ingredient.unit }}(s)
     </td>
     <td>
-      <a href="{% url 'update_recipe_req' recipe_req.id %}">Edit</a>
-      <a href="{% url 'delete_recipe_req' recipe_req.id %}">Delete</a>
+      <div class="btn-group">
+      <a href="{% url 'update_recipe_req' recipe_req.id %}" class="btn btn-primary">Edit</a>
+      <a href="{% url 'delete_recipe_req' recipe_req.id %}" class="btn btn-danger">Delete</a>
+      </div>
     </td>
   </tr>
   {% endfor %}
 </table>
 
-<ul>
-<li><a href="{% url 'create_recipe_req' %}">Create New Recipe Requirement</a></li>
-</ul>
+
+<a href="{% url 'create_recipe_req' %}" class="btn mealwise-bg-darkgreen mealwise-white">Create New Recipe Requirement</a>
+
 {% endblock %}

@@ -3,7 +3,7 @@
 {% block content %}
 <h1>Pantry</h1>
 
-<table>
+<table class="table">
   <tr>
     <th>Ingredient</th>
     <th>Quantity</th>
@@ -22,14 +22,14 @@
       ${{ ingredient.price_per_unit }} / {{ ingredient.unit }}
     </td>
     <td>
-      <a href="{% url 'update_ingredient' ingredient.id %}">Edit</a>
-      <a href="{% url 'delete_ingredient' ingredient.id %}">Delete</a>
+      <div class="btn-group">
+      <a href="{% url 'update_ingredient' ingredient.id %}" class="btn btn-primary">Edit</a>
+      <a href="{% url 'delete_ingredient' ingredient.id %}" class="btn btn-danger">Delete</a>
+      </div>
     </td>
   </tr>
   {% endfor %}
 </table>
 
-<ul>
-<li><a href="{% url 'create_ingredient' %}">Create Ingredient Record</a></li>
-</ul>
+<a href="{% url 'create_ingredient' %}" class="btn mealwise-bg-darkgreen mealwise-white">Create Ingredient Record</a>
 {% endblock %}
