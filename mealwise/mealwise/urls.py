@@ -19,6 +19,7 @@ from inventory import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('robots.txt', views.Robots.as_view(), name="robots"),
     path('', views.HomeView.as_view(), name="home"),
     path('menu/', views.Menu.as_view(), name="menu"),
     path('recipes/', views.RecipeRequirements.as_view(), name="recipes"),

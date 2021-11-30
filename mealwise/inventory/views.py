@@ -5,6 +5,12 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from . import forms, models
 
+# Robots.txt view
+
+class Robots(TemplateView):
+  template_name = "robots.txt"
+  content_type = "text/plain"
+
 # Home view
 
 class HomeView(TemplateView):
