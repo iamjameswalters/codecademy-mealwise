@@ -15,12 +15,17 @@
         Mind your peas and queues.
       </span>
     </p>
+    {% if user.is_authenticated %}
     <p class="col-md-8 fs-4">
-      Using a series of utilities, you can create this jumbotron, just like the
-      one in previous versions of Bootstrap. Check out the examples below for
-      how you can remix and restyle it to your liking.
+      Hey {{ user.username }}, nice to see you again!
     </p>
-    <button class="btn mealwise-bg-lightred mealwise-white btn-lg" type="button">Example button</button>
+    <button class="btn btn-danger" type="button">Log out</button>
+    {% else %}
+    <p class="col-md-8 fs-4">
+      Welcome to mealwise, a system for manager orders and inventory for restaurants. 
+    </p>
+    <a href="{% url 'create_purchase' %}" class="btn btn-success btn-lg">Place an Order</a> <a href="{% url 'create_purchase' %}" class="btn btn-info btn-lg ms-1">Create Restaurateur Account</a>
+    {% endif %}
   </div>
 </div>
 {% endblock %}

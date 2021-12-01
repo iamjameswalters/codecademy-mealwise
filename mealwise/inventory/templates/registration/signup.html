@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-center">
+  <div>
+<h1>Sign up for Mealwise</h1>
+<form action="" method="post">
+{% csrf_token %}  
+{{ form.as_p }}
+<input type="submit" value="Sign up" class="btn btn-success">
+</form>
+</div>
+</div>
+{% endblock %}

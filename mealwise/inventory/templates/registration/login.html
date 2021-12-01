@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-center">
+  <div>
+<h1>Login to Mealwise</h1>
+<form action="" method="post" class="text-center">
+{% csrf_token %}  
+{{ form.as_p }}
+<input type="submit" value="Login" class="btn btn-success">
+</form>
+
+<div class="text-center my-3">
+  Don't have an account?
+  <a href="{% url 'signup' %}" class="btn btn-primary mx-1">Sign up</a>
+</div>
+</div>
+</div>
+{% endblock %}

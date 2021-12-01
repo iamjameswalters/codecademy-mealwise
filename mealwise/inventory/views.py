@@ -1,6 +1,9 @@
 from decimal import Decimal
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -12,6 +15,13 @@ class Robots(TemplateView):
   template_name = "robots.txt"
   content_type = "text/plain"
 
+# Account Creation view
+
+class CreateAccount(CreateView):
+  form_class = UserCreationForm
+  success_url = reverse_lazy("login")
+  template_name = 'registration/signup.html'
+
 # Home view
 
 class HomeView(TemplateView):
@@ -20,7 +30,7 @@ class HomeView(TemplateView):
 
 # Report view
 
-class ReportView(TemplateView):
+class ReportView(LoginRequiredMixin, TemplateView):
   template_name = "inventory/report.html"
 
   def get_context_data(self, **kwargs):

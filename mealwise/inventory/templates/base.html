@@ -36,7 +36,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="collapseNavTarget">
-          <div class="navbar-nav">
+          <div class="navbar-nav me-auto">
             <a
               class="nav-link {{ active_nav_home }}"
               aria-current="page"
@@ -48,6 +48,13 @@
             <a class="nav-link {{ active_nav_pantry }}" href="{% url 'ingredients' %}">Pantry</a>
             <a class="nav-link {{ active_nav_purchases }}" href="{% url 'purchases' %}">Purchases</a>
             <a class="nav-link {{ active_nav_report }}" href="{% url 'report' %}">Report</a>
+          </div>
+          <div class="navbar-nav ms-auto">
+            {% if user.is_authenticated %}
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
+            {% endif %}
           </div>
         </div>
       </div>
