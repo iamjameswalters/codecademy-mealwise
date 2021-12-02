@@ -4,7 +4,13 @@
 <form action="" method="POST">
   {% csrf_token %}
   <div>
-    {{ form.as_p }}
+    <label for="menu_item">Select an available menu item:</label>
+    <select name="menu_item" id="menu_item" required>
+      <option value="" selected>(choose an item)</option>
+      {% for item in available_items %}
+      <option value="{{ item.id }}">{{ item.name }}</option>
+      {% endfor %}
+    </select>
     <input type="submit" value="Submit" />
   </div>
 </form>

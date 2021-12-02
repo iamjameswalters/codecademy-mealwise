@@ -1,5 +1,5 @@
 from decimal import Decimal
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpRequest, HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -113,7 +113,26 @@ class CreatePurchase(CreateView):
   template_name = "inventory/create_purchase.html"
   model = models.Purchase
   form_class = forms.PurchaseForm
-  extra_context = {'active_nav_purchases': "active"}
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+
+    full_menu = models.MenuItem.objects.all()
+    context['available_items'] = [item for item in full_menu if item.is_available()]
+    context['active_nav_purchases'] = 'active'
+
+    return context
+
+  def post(self, request):
+    purchase_item_id = request.POST['menu_item']
+    purchase_item = models.MenuItem.objects.get(pk=purchase_item_id)
+    for recipe_req in purchase_item.reciperequirement_set.all():
+      purchase_ingredient = recipe_req.ingredient
+      purchase_ingredient.quantity -= recipe_req.quantity
+      purchase_ingredient.save()
+    purchase = models.Purchase(menu_item=purchase_item)
+    purchase.save()
+    return redirect("/purchases")
 
 # Update Views
 

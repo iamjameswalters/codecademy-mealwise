@@ -18,10 +18,16 @@ class MenuItem(models.Model):
     price = models.DecimalField(max_digits=4, decimal_places=2, default=0.00)
 
     def __str__(self):
-        return "{} menu item".format(self.name)
+        return "{}".format(self.name)
 
     def get_absolute_url(self):
         return "/menu"
+
+    def is_available(self):
+        for ingredient in self.reciperequirement_set.all():
+            if not ingredient.enough():
+                return False
+        return True
 
 class RecipeRequirement(models.Model):
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
@@ -33,6 +39,9 @@ class RecipeRequirement(models.Model):
 
     def get_absolute_url(self):
         return "/recipes"
+
+    def enough(self):
+        return self.ingredient.quantity >= self.quantity
 
 class Purchase(models.Model):
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
