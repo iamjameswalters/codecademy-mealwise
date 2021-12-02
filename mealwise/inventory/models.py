@@ -18,7 +18,7 @@ class MenuItem(models.Model):
     price = models.DecimalField(max_digits=4, decimal_places=2, default=0.00)
 
     def __str__(self):
-        return "{item}: ${price}".format(name=self.name, price=self.price)
+        return "{item}: ${price}".format(item=self.name, price=self.price)
 
     def get_absolute_url(self):
         return "/menu"
