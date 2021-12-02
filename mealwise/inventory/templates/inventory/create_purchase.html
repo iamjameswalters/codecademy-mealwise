@@ -8,7 +8,7 @@
     <select name="menu_item" id="menu_item" required>
       <option value="" selected>(choose an item)</option>
       {% for item in available_items %}
-      <option value="{{ item.id }}">{{ item.name }}</option>
+      <option value="{{ item.id }}">{{ item }}</option>
       {% endfor %}
     </select>
     <input type="submit" value="Submit" />
