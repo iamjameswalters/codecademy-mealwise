@@ -6,13 +6,17 @@
 <table class="table">
   <tr>
     <th>Item</th>
+    <th>Price</th>
     <th>Order Time</th>
     <th>Edit Order</th>
   </tr>
   {% for purchase in object_list %}
   <tr>
     <td>
-      {{ purchase.menu_item }}
+      {{ purchase.menu_item.name }}
+    </td>
+    <td>
+      ${{ purchase.menu_item.price }}
     </td>
     <td>
       {{ purchase.time }}
