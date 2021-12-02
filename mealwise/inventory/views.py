@@ -69,7 +69,7 @@ class ReportView(LoginRequiredMixin, TemplateView):
 
 # List views
 
-class Ingredients(ListView):
+class Ingredients(LoginRequiredMixin, ListView):
   template_name = "inventory/ingredients.html"
   model = models.Ingredient
   extra_context = {'active_nav_pantry': "active"}
@@ -79,7 +79,7 @@ class Menu(ListView):
   model = models.MenuItem
   extra_context = {'active_nav_menu': "active"}
 
-class RecipeRequirements(ListView):
+class RecipeRequirements(LoginRequiredMixin, ListView):
   template_name = "inventory/recipe_requirements.html"
   model = models.RecipeRequirement
   extra_context = {'active_nav_recipes': "active"}
@@ -91,19 +91,19 @@ class Purchases(ListView):
 
 # Create Views
 
-class CreateIngredient(CreateView):
+class CreateIngredient(LoginRequiredMixin, CreateView):
   template_name = "inventory/create_ingredient.html"
   model = models.Ingredient
   form_class = forms.IngredientForm
   extra_context = {'active_nav_pantry': "active"}
 
-class CreateMenuItem(CreateView):
+class CreateMenuItem(LoginRequiredMixin, CreateView):
   template_name = "inventory/create_menu_item.html"
   model = models.MenuItem
   form_class = forms.MenuItemForm
   extra_context = {'active_nav_menu': "active"}
 
-class CreateRecipeRequirement(CreateView):
+class CreateRecipeRequirement(LoginRequiredMixin, CreateView):
   template_name = "inventory/create_recipe_req.html"
   model = models.RecipeRequirement
   form_class = forms.RecipeRequirementForm
@@ -136,19 +136,19 @@ class CreatePurchase(CreateView):
 
 # Update Views
 
-class UpdateIngredient(UpdateView):
+class UpdateIngredient(LoginRequiredMixin, UpdateView):
   template_name = "inventory/update_ingredient.html"
   model = models.Ingredient
   form_class = forms.IngredientForm
   extra_context = {'active_nav_pantry': "active"}
 
-class UpdateMenuItem(UpdateView):
+class UpdateMenuItem(LoginRequiredMixin, UpdateView):
   template_name = "inventory/update_menu_item.html"
   model = models.MenuItem
   form_class = forms.MenuItemForm
   extra_context = {'active_nav_menu': "active"}
 
-class UpdateRecipeRequirement(UpdateView):
+class UpdateRecipeRequirement(LoginRequiredMixin, UpdateView):
   template_name = "inventory/update_recipe_req.html"
   model = models.RecipeRequirement
   form_class = forms.RecipeRequirementForm
@@ -162,19 +162,19 @@ class UpdatePurchase(UpdateView):
 
 # Delete Views
 
-class DeleteIngredient(DeleteView):
+class DeleteIngredient(LoginRequiredMixin, DeleteView):
   template_name = "inventory/delete_ingredient.html"
   model = models.Ingredient
   success_url = "/ingredients"
   extra_context = {'active_nav_pantry': "active"}
 
-class DeleteMenuItem(DeleteView):
+class DeleteMenuItem(LoginRequiredMixin, DeleteView):
   template_name = "inventory/delete_menu_item.html"
   model = models.MenuItem
   success_url = "/menu"
   extra_context = {'active_nav_menu': "active"}
 
-class DeleteRecipeRequirement(DeleteView):
+class DeleteRecipeRequirement(LoginRequiredMixin, DeleteView):
   template_name = "inventory/delete_recipe_req.html"
   model = models.RecipeRequirement
   success_url = "/recipes"
