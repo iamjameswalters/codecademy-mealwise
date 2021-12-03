@@ -34,6 +34,9 @@ class RecipeRequirement(models.Model):
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     quantity = models.FloatField(default=0)
 
+    class Meta:
+        unique_together = (('menu_item', 'ingredient'),)
+
     def __str__(self):
         return "Recipe: {menu} requires {quan} {unit}(s) of {ing}".format(ing=self.ingredient.name, menu=self.menu_item.name, quan=self.quantity, unit=self.ingredient.unit)
 
