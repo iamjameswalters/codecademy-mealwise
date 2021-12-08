@@ -7,6 +7,7 @@ authors = ["James Walters <33947683+iamjameswalters@users.noreply.github.com>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 Django = "^3.2.9"
+django-htmx = "^1.6.0"
 
 [tool.poetry.dev-dependencies]
 
