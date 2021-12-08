@@ -3,8 +3,9 @@ from django.shortcuts import redirect, render
 from django.http import HttpRequest, HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.generic.base import TemplateView
+from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from . import forms, models
@@ -74,10 +75,23 @@ class Ingredients(LoginRequiredMixin, ListView):
   model = models.Ingredient
   extra_context = {'active_nav_pantry': "active"}
 
+class HtmxIngredient(DetailView):
+  template_name = 'htmx/ingredient.html'
+  model = models.Ingredient
+
 class Menu(ListView):
   template_name = "inventory/menu.html"
   model = models.MenuItem
   extra_context = {'active_nav_menu': "active"}
+
+  # def get(self, request):
+  #   htmx = request.headers.get('HX-Request')
+  #   if htmx == "true":
+  #     self.extra_context['basetemplate'] = 'htmx.html'
+  #     return super().get(self, request)
+  #   else:
+  #     self.extra_context['basetemplate'] = 'base.html'
+  #     return super().get(self, request)
 
 class RecipeRequirements(LoginRequiredMixin, ListView):
   template_name = "inventory/recipe_requirements.html"
@@ -141,6 +155,12 @@ class UpdateIngredient(LoginRequiredMixin, UpdateView):
   model = models.Ingredient
   form_class = forms.IngredientForm
   extra_context = {'active_nav_pantry': "active"}
+
+class HtmxUpdateIngredient(UpdateIngredient):
+  template_name = 'htmx/update_ingredient.html'
+  
+  def get_success_url(self):
+    return reverse('htmx_ingredient', args=(self.object.pk,))
 
 class UpdateMenuItem(LoginRequiredMixin, UpdateView):
   template_name = "inventory/update_menu_item.html"

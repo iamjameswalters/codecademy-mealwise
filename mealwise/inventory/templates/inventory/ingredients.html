@@ -11,7 +11,7 @@
     <th>Edit Item</th>
   </tr>
   {% for ingredient in object_list %}
-  <tr>
+  <tr hx-target="this" hx-swap="outerHTML">
     <td>
       {{ ingredient.name }}
     </td>
@@ -23,7 +23,7 @@
     </td>
     <td>
       <div class="btn-group">
-      <a href="{% url 'update_ingredient' ingredient.id %}" class="btn btn-primary">Edit</a>
+      <button hx-get="{% url 'htmx_update_ingredient' ingredient.id %}" class="btn btn-primary">Edit</button>
       <a href="{% url 'delete_ingredient' ingredient.id %}" class="btn btn-danger">Delete</a>
       </div>
     </td>

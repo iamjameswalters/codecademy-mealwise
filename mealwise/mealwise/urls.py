@@ -41,3 +41,10 @@ urlpatterns = [
     path('recipes/<pk>/remove', views.DeleteRecipeRequirement.as_view(), name="delete_recipe_req"),
     path('purchases/<pk>/remove', views.DeletePurchase.as_view(), name="delete_purchase"),
 ]
+
+htmxpatterns = [
+    path('ingredients/htmx/edit/<pk>', views.HtmxUpdateIngredient.as_view(), name="htmx_update_ingredient"),
+    path('ingredients/htmx/display/<pk>', views.HtmxIngredient.as_view(), name="htmx_ingredient"),
+]
+
+urlpatterns += htmxpatterns
