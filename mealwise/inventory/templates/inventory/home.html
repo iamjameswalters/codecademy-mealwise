@@ -24,8 +24,14 @@
     <p class="col-md-8 fs-4 pt-3 mb-5">
       Welcome to mealwise, a system for managing orders and inventory for restaurants. 
     </p>
-    <a href="{% url 'create_purchase' %}" class="btn btn-success btn-lg">Place an Order</a> <a href="{% url 'signup' %}" class="btn btn-info btn-lg ms-1">Create Restaurateur Account</a> <a href="{% url 'login' %}" class="btn btn-primary btn-lg ms-1">Manage Restaurant</a>
+    <a href="{% url 'create_purchase' %}" class="btn btn-success btn-lg">Place an Order</a> <a href="{% url 'signup' %}" class="btn btn-info btn-lg ms-1">Create Restaurateur Account</a> <button hx-get="{% url 'login' %}" hx-target="#modals-here" class="btn btn-primary btn-lg ms-1" _="on htmx:afterOnLoad wait 10ms then showModal()">Manage Restaurant</button>
     {% endif %}
   </div>
 </div>
+
+
+{% endblock %}
+
+{% block extra_js %}
+
 {% endblock %}

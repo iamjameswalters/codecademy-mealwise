@@ -1,8 +1,10 @@
 from decimal import Decimal
 from django.shortcuts import redirect, render
 from django.http import HttpRequest, HttpResponse
+from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 from django.urls import reverse, reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
@@ -15,6 +17,43 @@ from . import forms, models
 class Robots(TemplateView):
   template_name = "robots.txt"
   content_type = "text/plain"
+
+# Custom Login view
+
+class CustomLoginView(LoginView):
+  def get(self, request, *args, **kwargs):
+    if request.htmx:
+      self.template_name = "htmx/login_modal.html"
+      next_url = request.GET['next']
+      self.extra_context = {'next_page': next_url}
+    return super().get(self, request, *args, **kwargs)
+
+  def post(self, request, *args, **kwargs):
+    if request.htmx:
+      form = self.get_form()
+      if form.is_valid():
+        auth_login(self.request, form.get_user())
+        response = HttpResponse()
+        response['HX-Redirect'] = self.get_success_url()
+        return response
+      else:
+        self.template_name = "htmx/login_form_errors.html"
+        next_url = request.GET['next']
+        self.extra_context = {'next_page': next_url}
+        response = self.form_invalid(form)
+        response['HX-Retarget'] = '#errors-here'
+        # response['HX-Redirect'] = "/menu"
+        return response
+    else:
+      return super().post(self, request, *args, **kwargs)
+      # else:
+      #   return self.form_invalid(form)
+
+
+# HTMX Test View
+
+# def htmx_test(request):
+#   pass
 
 # Account Creation view
 
@@ -88,10 +127,9 @@ class Menu(ListView):
   #   htmx = request.headers.get('HX-Request')
   #   if htmx == "true":
   #     self.extra_context['basetemplate'] = 'htmx.html'
-  #     return super().get(self, request)
   #   else:
   #     self.extra_context['basetemplate'] = 'base.html'
-  #     return super().get(self, request)
+  #   return super().get(self, request)
 
 class RecipeRequirements(LoginRequiredMixin, ListView):
   template_name = "inventory/recipe_requirements.html"
@@ -110,6 +148,25 @@ class CreateIngredient(LoginRequiredMixin, CreateView):
   model = models.Ingredient
   form_class = forms.IngredientForm
   extra_context = {'active_nav_pantry': "active"}
+
+#   def get(self, request, *args, **kwargs):
+#     if request.htmx:
+#       self.template_name = 'htmx/create_ingredient.html'
+#     return super().get(self, request, *args, **kwargs)
+
+#   def post(self, request, *args, **kwargs):
+#     if not request.htmx:
+#       self.success_url = reverse('ingredients')
+#     return super().post(self, request, *args, **kwargs)
+
+        
+    
+
+# class HtmxCreateIngredient(CreateIngredient):
+#   template_name = "htmx/create_ingredient.html"
+  
+#   def get_success_url(self):
+#     pass
 
 class CreateMenuItem(LoginRequiredMixin, CreateView):
   template_name = "inventory/create_menu_item.html"
