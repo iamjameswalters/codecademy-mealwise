@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse, reverse_lazy
 
 # Create your models here.
 class Ingredient(models.Model):
@@ -11,7 +12,7 @@ class Ingredient(models.Model):
         return "{name} ingredient, quantity: {quan} {unit}(s)".format(name=self.name, quan=self.quantity, unit=self.unit)
 
     def get_absolute_url(self):
-        return "/ingredients"
+        return reverse("htmx_ingredient", args=(self.id,))
 
 class MenuItem(models.Model):
     name = models.CharField(max_length=50, unique=True)
