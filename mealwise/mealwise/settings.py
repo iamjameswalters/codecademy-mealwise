@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'inventory.apps.InventoryConfig',
-    'django_htmx'
+    'django_htmx',
+    'django_bootstrap5'
 ]
 
 MIDDLEWARE = [
