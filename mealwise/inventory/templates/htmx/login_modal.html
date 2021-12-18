@@ -1,36 +1,85 @@
-{% block content %}
-<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Login to Mealwise</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body" id="errors-here">
-        <form action="{% url 'login' %}?next={{ next_page }}" method="POST">
-          {% csrf_token %}
-          {% if form.errors %}
-          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            Incorrect username or password.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-          {% endif %}
-          <div class="mb-3">
-            <label for="username_field" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username_field" name="username">
-          </div>
-          <div class="mb-3">
-            <label for="password_field" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password_field" name="password">
-          </div>
+{% extends basetemplate %}
 
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button class="btn btn-primary" hx-post="{% url 'login' %}?next={{ next_page }}">Login</button>
-          </form>
-    
-    
-      </div>
+{% block content %}
+  <div class="modal-header">
+    <h5 class="modal-title" id="modalLabel">Login to Mealwise</h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="modal-body" id="errors-here">
+    {% if messages %}
+      {% for message in messages %}
+      <div
+      class="alert alert-success alert-dismissible fade show"
+      role="alert"
+    >
+      {{ message }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+      {% endfor %}
+    {% endif %}
+    <form action="{% url 'login' %}?next={{ next_page }}" method="POST" id="loginForm">
+    {% csrf_token %} {% if form.errors %}
+    <div
+      class="alert alert-danger alert-dismissible fade show"
+      role="alert"
+    >
+      Incorrect username or password.
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+    {% endif %}
+    <div class="mb-3">
+      <label for="username_field" class="form-label">Username</label>
+      <input
+        type="text"
+        class="form-control"
+        id="username_field"
+        name="username"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="password_field" class="form-label">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password_field"
+        name="password"
+      />
+    </div>
+    </form>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-bs-dismiss="modal"
+      >
+        Cancel
+      </button>
+      <button class="btn btn-primary" hx-get="{% url 'signup_intermodal' %}?next={{ next_page }}">
+        Create Account
+      </button>
+      <button
+        class="btn btn-success"
+        hx-post="{% url 'login' %}?next={{ next_page }}"
+        hx-include="#loginForm"
+      >
+        Login
+      </button>
     </div>
   </div>
-</div>
 {% endblock %}

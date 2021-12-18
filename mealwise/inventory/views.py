@@ -1,10 +1,12 @@
 from decimal import Decimal
 from django.shortcuts import redirect, render
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.contrib import messages
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
+from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse, reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
@@ -21,34 +23,33 @@ class Robots(TemplateView):
 # Custom Login view
 
 class CustomLoginView(LoginView):
+  template_name = "registration/login.html"
+  base_template = 'full_modal.html'
+
   def get(self, request, *args, **kwargs):
     if request.htmx:
+      next_url = request.GET.get('next', '')
+      self.extra_context = {'next_page': next_url, 'basetemplate': self.base_template}
       self.template_name = "htmx/login_modal.html"
-      next_url = request.GET['next']
-      self.extra_context = {'next_page': next_url}
     return super().get(self, request, *args, **kwargs)
 
   def post(self, request, *args, **kwargs):
-    if request.htmx:
-      form = self.get_form()
-      if form.is_valid():
-        auth_login(self.request, form.get_user())
-        response = HttpResponse()
-        response['HX-Redirect'] = self.get_success_url()
-        return response
-      else:
-        self.template_name = "htmx/login_form_errors.html"
-        next_url = request.GET['next']
-        self.extra_context = {'next_page': next_url}
-        response = self.form_invalid(form)
-        response['HX-Retarget'] = '#errors-here'
-        # response['HX-Redirect'] = "/menu"
-        return response
-    else:
+    if not request.htmx:
       return super().post(self, request, *args, **kwargs)
-      # else:
-      #   return self.form_invalid(form)
+    form = self.get_form()
+    if form.is_valid():
+      auth_login(self.request, form.get_user())
+      response = HttpResponse()
+      response['HX-Redirect'] = self.get_success_url()
+    else:
+      next_url = request.GET.get('next', '')
+      self.extra_context = {'next_page': next_url, 'basetemplate': 'htmx.html'}
+      self.template_name = "htmx/login_modal.html"
+      response = self.form_invalid(form)
+    return response
 
+class IntermodalLoginView(CustomLoginView):
+  base_template = 'htmx.html'
 
 # HTMX Test View
 
@@ -57,10 +58,34 @@ class CustomLoginView(LoginView):
 
 # Account Creation view
 
-class CreateAccount(CreateView):
+class CreateAccount(SuccessMessageMixin, CreateView):
   form_class = UserCreationForm
   success_url = reverse_lazy("login")
+  success_message = "Successfully created your account."
   template_name = 'registration/signup.html'
+  base_template = 'full_modal.html'
+
+  def form_valid(self, form):
+    super().form_valid(form)
+    return HttpResponseRedirect(self.get_success_url() + '?next=' + self.extra_context['next_page'])
+
+  def get(self, request, *args, **kwargs):
+    if request.htmx:
+      next_url = request.GET.get('next', '')
+      self.template_name = 'htmx/signup_modal.html'
+      self.extra_context = {'basetemplate': self.base_template, 'next_page': next_url}
+    return super().get(self, request, *args, **kwargs)
+
+  def post(self, request, *args, **kwargs):
+    if request.htmx:
+      next_url = request.GET.get('next', '')
+      self.template_name = 'htmx/signup_modal.html'
+      self.extra_context = {'basetemplate': self.base_template, 'next_page': next_url}
+      self.success_url = reverse_lazy('login_intermodal')
+    return super().post(self, request, *args, **kwargs)
+
+class IntermodalCreateAccount(CreateAccount):
+  base_template = 'htmx.html'
 
 # Home view
 
@@ -124,8 +149,7 @@ class Menu(ListView):
   extra_context = {'active_nav_menu': "active"}
 
   # def get(self, request):
-  #   htmx = request.headers.get('HX-Request')
-  #   if htmx == "true":
+  #   if request.htmx:
   #     self.extra_context['basetemplate'] = 'htmx.html'
   #   else:
   #     self.extra_context['basetemplate'] = 'base.html'

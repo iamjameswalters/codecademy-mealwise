@@ -1,0 +1,15 @@
+<div
+  class="modal fade"
+  id="htmx-modal"
+  tabindex="-1"
+  aria-labelledby="modalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content" id="modal-content-here" hx-target="this">
+      {% block content %}
+      
+      {% endblock %}
+    </div>
+  </div>
+</div>

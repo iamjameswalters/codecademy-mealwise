@@ -20,8 +20,8 @@ from inventory import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('robots.txt', views.Robots.as_view(), name="robots"),
-    path("accounts/", include("django.contrib.auth.urls")),
-    path("accounts/login", views.CustomLoginView.as_view(), name="login"),
+    # path("accounts/", include("django.contrib.auth.urls")),
+    path("login/", views.CustomLoginView.as_view(), name="login"),
     path('signup/', views.CreateAccount.as_view(), name="signup"),
     path('', views.HomeView.as_view(), name="home"),
     path('menu/', views.Menu.as_view(), name="menu"),
@@ -44,6 +44,8 @@ urlpatterns = [
 ]
 
 htmxpatterns = [
+    path("htmx/login/", views.IntermodalLoginView.as_view(), name="login_intermodal"),
+    path("htmx/signup/", views.IntermodalCreateAccount.as_view(), name="signup_intermodal"),
     path('ingredients/htmx/edit/<pk>', views.HtmxUpdateIngredient.as_view(), name="htmx_update_ingredient"),
     path('ingredients/htmx/display/<pk>', views.HtmxIngredient.as_view(), name="htmx_ingredient"),
 ]
