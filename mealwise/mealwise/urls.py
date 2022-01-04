@@ -20,7 +20,7 @@ from inventory import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('robots.txt', views.Robots.as_view(), name="robots"),
-    # path("accounts/", include("django.contrib.auth.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
     path("login/", views.CustomLoginView.as_view(), name="login"),
     path('signup/', views.CreateAccount.as_view(), name="signup"),
     path('', views.HomeView.as_view(), name="home"),
