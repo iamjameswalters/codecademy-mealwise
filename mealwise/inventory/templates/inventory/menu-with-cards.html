@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Menu Items</h1>
+<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+{% for menu_item in object_list %}
+<div class="col">
+<div class="card h-100">
+  <img src="{% static 'img/generic-img.png' %}" class="card-img-top" alt="{{menu_item.name}} image">
+  <div class="card-body">
+    <h5 class="card-title">{{ menu_item.name }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">${{ menu_item.price }}</h6>
+    <p class="card-text">I haven't implemented yet, but here's where an description of the dish will go.</p>
+  </div>
+  <div class="card-footer text-end">
+    {% if user.is_authenticated %}
+    <div class="btn-group " role="group">
+      <a href="{% url 'update_menu_item' menu_item.id %}" class="btn btn-primary">Edit</a>
+      <a href="{% url 'delete_menu_item' menu_item.id %}" class="btn btn-danger">Delete</a>
+      </div>
+    {% endif %}
+  <a href="#" class="btn btn-secondary disabled">Order</a>
+  </div>
+</div>
+</div>
+{% endfor %}
+</div>
+
+{% if user.is_authenticated %}
+<div class="my-4">
+<a href="{% url 'create_menu_item' %}" class="btn mealwise-bg-darkgreen mealwise-white align-middle"><span style="font-size: 24px; font-weight: bold; line-height: 19px" class="align-text-top">&plus;</span> Create Menu Item</a>
+</div>
+{% endif %}
+{% endblock %}
