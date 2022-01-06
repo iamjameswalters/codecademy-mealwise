@@ -3,11 +3,11 @@
 
 {% block content %}
 <h1>Menu Items</h1>
-<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+<div class="row row-cols-1 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 g-4">
 {% for menu_item in object_list %}
 <div class="col">
 <div class="card h-100">
-  <img src="{% static 'img/generic-img.png' %}" class="card-img-top" alt="{{menu_item.name}} image">
+  <img src="{{ menu_item.image.url }}" class="card-img-top" alt="{{menu_item.name}} image">
   <div class="card-body">
     <h5 class="card-title">{{ menu_item.name }}</h5>
     <h6 class="card-subtitle mb-2 text-muted">${{ menu_item.price }}</h6>
