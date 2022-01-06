@@ -128,3 +128,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 mealwise/inventory/templates/inventory/.prettierrc
+
+# Ignore User Uploaded images
+/mealwise/inventory/media/menu_images/
