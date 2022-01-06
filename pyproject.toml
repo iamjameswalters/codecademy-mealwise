@@ -9,6 +9,7 @@ python = "^3.8"
 Django = "^3.2.9"
 django-htmx = "^1.6.0"
 django-bootstrap5 = "^21.2"
+Pillow = "^9.0.0"
 
 [tool.poetry.dev-dependencies]
 
