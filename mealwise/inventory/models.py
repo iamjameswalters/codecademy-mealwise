@@ -26,6 +26,9 @@ class MenuItem(models.Model):
     def get_absolute_url(self):
         return "/menu"
 
+    def get_recipe_requirements(self):
+        return self.reciperequirement_set.all()
+
     def is_available(self):
         for ingredient in self.reciperequirement_set.all():
             if not ingredient.enough():
