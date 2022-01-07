@@ -7,11 +7,11 @@
 {% for menu_item in object_list %}
 <div class="col">
 <div class="card h-100">
-  <img src="{{ menu_item.image.url }}" class="card-img-top" alt="{{menu_item.name}} image">
+  <img src="{{ menu_item.image.url }}" class="card-img-top" alt="{{menu_item.name}} image" style="max-height: 250px;">
   <div class="card-body">
     <h5 class="card-title">{{ menu_item.name }}</h5>
     <h6 class="card-subtitle mb-2 text-muted">${{ menu_item.price }}</h6>
-    <p class="card-text">I haven't implemented in the model yet, but here's where a description of the dish will go.</p>
+    <p class="card-text">{{ menu_item.description }}</p>
   </div>
   <div class="card-footer text-end">
     {% if user.is_authenticated %}
