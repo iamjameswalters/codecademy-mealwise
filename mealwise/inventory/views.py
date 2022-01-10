@@ -204,6 +204,9 @@ class CreateRecipeRequirement(LoginRequiredMixin, CreateView):
   form_class = forms.RecipeRequirementForm
   extra_context = {'active_nav_recipes': "active"}
 
+class HtmxCreateRecipeRequirement(CreateRecipeRequirement):
+  template_name = "htmx/create_recipe_req.html"
+
 class CreatePurchase(CreateView):
   template_name = "inventory/create_purchase.html"
   model = models.Purchase
@@ -274,6 +277,10 @@ class DeleteMenuItem(LoginRequiredMixin, DeleteView):
   model = models.MenuItem
   success_url = "/menu"
   extra_context = {'active_nav_menu': "active"}
+
+class HtmxDeleteMenuItem(DeleteMenuItem):
+  template_name = "htmx/delete_menu_item_modal.html"
+  extra_context = {'basetemplate': 'full_modal.html'}
 
 class DeleteRecipeRequirement(LoginRequiredMixin, DeleteView):
   template_name = "inventory/delete_recipe_req.html"
