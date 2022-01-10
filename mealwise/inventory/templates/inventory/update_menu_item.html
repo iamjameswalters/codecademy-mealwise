@@ -1,11 +1,46 @@
 {% extends 'base.html' %} 
+{% load django_bootstrap5 %}
+
 {% block content %}
-<h2>Modify menu item</h2>
+<h2>{{ menuitem.name }}</h2>
+<img src="{{ menuitem.image.url }}" alt="{{ menuitem.name }} image" style="max-width: 400px;" class="mb-3">
 <form action="" method="POST" enctype="multipart/form-data">
   {% csrf_token %}
   <div>
-    {{ form.as_p }}
-    <input type="submit" value="Submit" />
+    {% bootstrap_form form %}
+    <input class="btn btn-success" type="submit" value="Submit" />
   </div>
 </form>
+
+<h3 class="mt-5">Recipe</h3>
+
+<table class="table" id="recipe_table">
+  <tr>
+    
+    <th>Ingredient</th>
+    <th>Quantity Required</th>
+    <th>Edit Item</th>
+  </tr>
+  {% for recipe_req in menuitem.get_recipe_requirements %}
+  <tr>
+
+    <td>
+      {{ recipe_req.ingredient.name }}
+    </td>
+    <td>
+      {{ recipe_req.quantity }} {{ recipe_req.ingredient.unit }}(s)
+    </td>
+    <td>
+      <div class="btn-group">
+      <a href="{% url 'update_recipe_req' recipe_req.id %}" class="btn btn-primary">Edit</a>
+      <a href="{% url 'delete_recipe_req' recipe_req.id %}" class="btn btn-danger">Delete</a>
+      </div>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+
+<button hx-get="{% url 'htmx_create_recipe_req' %}" hx-target="#recipe_table" hx-swap="beforeend" class="btn btn-success">Create New Recipe Requirement</button>
+
 {% endblock %}
