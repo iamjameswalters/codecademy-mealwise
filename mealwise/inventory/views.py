@@ -198,6 +198,10 @@ class CreateMenuItem(LoginRequiredMixin, CreateView):
   form_class = forms.MenuItemForm
   extra_context = {'active_nav_menu': "active"}
 
+class HtmxCreateMenuItem(CreateMenuItem):
+  template_name = "htmx/create_menu_item_modal.html"
+  extra_context = {'basetemplate': 'full_modal.html'}
+
 class CreateRecipeRequirement(LoginRequiredMixin, CreateView):
   template_name = "inventory/create_recipe_req.html"
   model = models.RecipeRequirement
@@ -281,6 +285,13 @@ class DeleteMenuItem(LoginRequiredMixin, DeleteView):
 class HtmxDeleteMenuItem(DeleteMenuItem):
   template_name = "htmx/delete_menu_item_modal.html"
   extra_context = {'basetemplate': 'full_modal.html'}
+
+  def delete(self, request, *args, **kwargs):
+    self.object = self.get_object()
+    response = HttpResponse()
+    response['HX-Redirect'] = self.get_success_url()
+    self.object.delete()
+    return response
 
 class DeleteRecipeRequirement(LoginRequiredMixin, DeleteView):
   template_name = "inventory/delete_recipe_req.html"
