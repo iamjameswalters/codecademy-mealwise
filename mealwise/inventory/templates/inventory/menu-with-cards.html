@@ -29,7 +29,7 @@
 
 {% if user.is_authenticated %}
 <div class="my-4">
-<a href="{% url 'create_menu_item' %}" class="btn mealwise-bg-darkgreen mealwise-white align-middle"><span style="font-size: 24px; font-weight: bold; line-height: 19px" class="align-text-top">&plus;</span> Create Menu Item</a>
+<button hx-get="{% url 'htmx_create_menu_item' %}" hx-target="#modals-here" _="on htmx:afterOnLoad wait 10ms then showModal()" class="btn btn-success align-middle"><span style="font-size: 24px; font-weight: bold; line-height: 19px" class="align-text-top">&plus;</span> Create Menu Item</button>
 </div>
 {% endif %}
 {% endblock %}

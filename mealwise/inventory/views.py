@@ -200,7 +200,21 @@ class CreateMenuItem(LoginRequiredMixin, CreateView):
 
 class HtmxCreateMenuItem(CreateMenuItem):
   template_name = "htmx/create_menu_item_modal.html"
-  extra_context = {'basetemplate': 'full_modal.html'}
+  base_template = 'full_modal.html'
+
+  def get(self, request, *args, **kwargs):
+    self.extra_context = {'basetemplate': self.base_template}
+    return super().get(self, request, *args, **kwargs)
+
+  def form_valid(self, form):
+    self.object = form.save()
+    response = HttpResponse()
+    response['Hx-Redirect'] = self.get_success_url()
+    return response
+
+  def form_invalid(self, form):
+    self.extra_context['basetemplate'] = 'htmx.html'
+    return super().form_invalid(form)
 
 class CreateRecipeRequirement(LoginRequiredMixin, CreateView):
   template_name = "inventory/create_recipe_req.html"

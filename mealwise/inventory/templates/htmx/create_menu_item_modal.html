@@ -1,0 +1,35 @@
+{% extends basetemplate %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+  <div class="modal-header">
+    <h5 class="modal-title" id="modalLabel">Create new menu item</h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="modal-body" id="errors-here">
+    <form action="{% url 'htmx_create_menu_item' %}" method="POST" id="createMenuItemForm" class="form">
+    {% csrf_token %} 
+    {% bootstrap_form form %}
+    </form>
+    <p class="alert alert-info text-center">After creating this menu item,<br />click "Edit" to add a recipe for it.</p>
+    </div>
+    <div class="modal-footer">
+      
+      <button
+        class="btn btn-secondary"
+        data-bs-dismiss="modal"
+      >
+        Cancel
+      </button>
+      
+      <button class="btn btn-primary" hx-post="{% url 'htmx_create_menu_item' %}" hx-include="#createMenuItemForm">
+       Create
+      </button>
+    </div>
+  </div>
+{% endblock %}
