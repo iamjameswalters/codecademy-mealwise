@@ -1,8 +1,8 @@
 <tr hx-target="this" hx-swap="outerHTML">
   {% csrf_token %}
     <td><input type="text" value="{{ ingredient.name }}" name="name" id="id_name" required style="max-width: 10em;" /></td>
-    <td><input type="number" value="{{ ingredient.quantity }}" name="quantity" id="id_quantity" required style="max-width: 5em;" /> <input type="text" value="{{ ingredient.unit }}" name="unit" id="id_unit" required style="max-width: 5em;" /> (s)</td>
-    <td>$<input type="number" name="price_per_unit" value="{{ ingredient.price_per_unit }}" step="0.01" required id="id_price_per_unit" style="max-width: 5em;"> / {{ ingredient.unit }} (s)</td>
+    <td><input type="number" value="{{ ingredient.quantity }}" name="quantity" id="id_quantity" required style="max-width: 5em;" /> <input type="text" value="{{ ingredient.unit }}" name="unit" id="id_unit" required style="max-width: 5em;" _="on keyup put my.value into #current_units" /> (s)</td>
+    <td>$<input type="number" name="price_per_unit" value="{{ ingredient.price_per_unit }}" step="0.01" required id="id_price_per_unit" style="max-width: 5em;"> / <span id="current_units">{{ ingredient.unit }}</span></td>
     <td>
       <div class="btn-group">
       <button class="btn btn-success" hx-include='closest tr' hx-post="{% url 'htmx_update_ingredient' ingredient.id %}">Save</button>
