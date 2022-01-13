@@ -8,6 +8,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse, reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
@@ -50,11 +52,6 @@ class CustomLoginView(LoginView):
 
 class IntermodalLoginView(CustomLoginView):
   base_template = 'htmx.html'
-
-# HTMX Test View
-
-# def htmx_test(request):
-#   pass
 
 # Account Creation view
 
@@ -143,6 +140,14 @@ class HtmxIngredient(DetailView):
   template_name = 'htmx/ingredient.html'
   model = models.Ingredient
 
+def htmx_get_ingredient_unit_view(request):
+  selected_ingredient = request.GET['ingredient']
+  if selected_ingredient == '':
+    return HttpResponse('unit')
+  ingredient_obj = models.Ingredient.objects.get(id=selected_ingredient)
+  unit = ingredient_obj.unit
+  return HttpResponse(unit)
+
 class Menu(ListView):
   template_name = "inventory/menu-with-cards.html"
   model = models.MenuItem
@@ -159,6 +164,10 @@ class RecipeRequirements(LoginRequiredMixin, ListView):
   template_name = "inventory/recipe_requirements.html"
   model = models.RecipeRequirement
   extra_context = {'active_nav_recipes': "active"}
+
+class HtmxRecipeRequirement(DetailView):
+  template_name = 'htmx/recipe_requirement.html'
+  model = models.RecipeRequirement
 
 class Purchases(ListView):
   template_name = "inventory/purchases.html"
@@ -225,6 +234,17 @@ class CreateRecipeRequirement(LoginRequiredMixin, CreateView):
 class HtmxCreateRecipeRequirement(CreateRecipeRequirement):
   template_name = "htmx/create_recipe_req.html"
 
+  def get(self, request, *args, **kwargs):
+    self.extra_context = {'current_menu_item': self.kwargs.get(self.pk_url_kwarg)}
+    return super().get(self, request, *args, **kwargs)
+
+  def post(self, request, *args, **kwargs):
+    self.extra_context = {'current_menu_item': self.kwargs.get(self.pk_url_kwarg)}
+    return super().post(self, request, *args, **kwargs)
+
+  def get_success_url(self):
+    return reverse('htmx_recipe_req', args=(self.object.pk,))
+
 class CreatePurchase(CreateView):
   template_name = "inventory/create_purchase.html"
   model = models.Purchase
@@ -276,6 +296,20 @@ class UpdateRecipeRequirement(LoginRequiredMixin, UpdateView):
   form_class = forms.RecipeRequirementForm
   extra_context = {'active_nav_recipes': "active"}
 
+class HtmxUpdateRecipeRequirement(UpdateRecipeRequirement):
+  template_name = "htmx/update_recipe_req.html"
+
+  # def get(self, request, *args, **kwargs):
+  #   self.extra_context = {'current_menu_item': self.kwargs.get(self.pk_url_kwarg)}
+  #   return super().get(self, request, *args, **kwargs)
+
+  # def post(self, request, *args, **kwargs):
+  #   self.extra_context = {'current_menu_item': self.kwargs.get(self.pk_url_kwarg)}
+  #   return super().post(self, request, *args, **kwargs)
+
+  def get_success_url(self):
+    return reverse('htmx_recipe_req', args=(self.object.pk,))
+
 class UpdatePurchase(UpdateView):
   template_name = "inventory/update_purchase.html"
   model = models.Purchase
@@ -312,6 +346,14 @@ class DeleteRecipeRequirement(LoginRequiredMixin, DeleteView):
   model = models.RecipeRequirement
   success_url = "/recipes"
   extra_context = {'active_nav_recipes': "active"}
+
+@method_decorator(csrf_exempt, name='dispatch')
+class HtmxDeleteRecipeRequirement(DeleteRecipeRequirement):
+  def delete(self, request, *args, **kwargs):
+    super().delete(self, request, *args, **kwargs)
+    # self.object = self.get_object()
+    # self.object.delete()
+    return render(request, 'htmx/delete_recipe_req.html')
 
 class DeletePurchase(DeleteView):
   template_name = "inventory/delete_purchase.html"

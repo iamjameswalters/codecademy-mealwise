@@ -14,13 +14,16 @@
 
 <h3 class="mt-5">Recipe</h3>
 
-<table class="table" id="recipe_table">
+<table class="table">
+  <thead>
   <tr>
     
     <th>Ingredient</th>
     <th>Quantity Required</th>
     <th>Edit Item</th>
   </tr>
+  </thead>
+  <tbody id="recipe_table">
   {% for recipe_req in menuitem.get_recipe_requirements %}
   <tr>
 
@@ -32,15 +35,16 @@
     </td>
     <td>
       <div class="btn-group">
-      <a href="{% url 'update_recipe_req' recipe_req.id %}" class="btn btn-primary">Edit</a>
-      <a href="{% url 'delete_recipe_req' recipe_req.id %}" class="btn btn-danger">Delete</a>
+      <button hx-get="{% url 'htmx_update_recipe_req' recipe_req.id %}" hx-target="closest tr" hx-swap="outerHTML" class="btn btn-primary">Edit</button>
+      <button hx-confirm="Are you sure you want to delete this requirement?" hx-post="{% url 'htmx_delete_recipe_req' recipe_req.id %}" hx-target="closest tr" hx-swap="outerHTML" class="btn btn-danger">Delete</button>
       </div>
     </td>
   </tr>
   {% endfor %}
+  </tbody>
 </table>
 
 
-<button hx-get="{% url 'htmx_create_recipe_req' %}" hx-target="#recipe_table" hx-swap="beforeend" class="btn btn-success">Create New Recipe Requirement</button>
+<button hx-get="{% url 'htmx_create_recipe_req' menuitem.id %}" hx-target="#recipe_table" hx-swap="beforeend" _="on htmx:afterOnLoad add .disabled to me" class="btn btn-success" id="createRecipeButton">Create New Recipe Requirement</button>
 
 {% endblock %}

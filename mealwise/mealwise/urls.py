@@ -51,9 +51,13 @@ htmxpatterns = [
     path("htmx/signup/", views.IntermodalCreateAccount.as_view(), name="signup_intermodal"),
     path('menu/htmx/add', views.HtmxCreateMenuItem.as_view(), name="htmx_create_menu_item"),
     path('menu/htmx/<pk>/remove', views.HtmxDeleteMenuItem.as_view(), name="htmx_delete_menu_item"),
-    path('recipes/htmx/add', views.HtmxCreateRecipeRequirement.as_view(), name="htmx_create_recipe_req"),
+    path('menu/htmx/<pk>/recipe/add', views.HtmxCreateRecipeRequirement.as_view(), name="htmx_create_recipe_req"),
     path('ingredients/htmx/edit/<pk>', views.HtmxUpdateIngredient.as_view(), name="htmx_update_ingredient"),
     path('ingredients/htmx/display/<pk>', views.HtmxIngredient.as_view(), name="htmx_ingredient"),
+    path('ingredients/htmx/unit', views.htmx_get_ingredient_unit_view, name="htmx_get_ingredient_unit"),
+    path('recipes/htmx/display/<pk>', views.HtmxRecipeRequirement.as_view(), name="htmx_recipe_req"),
+    path('recipes/htmx/<pk>', views.HtmxUpdateRecipeRequirement.as_view(), name="htmx_update_recipe_req"),
+    path('recipes/htmx/<pk>/remove', views.HtmxDeleteRecipeRequirement.as_view(), name="htmx_delete_recipe_req"),
 ]
 
 urlpatterns += htmxpatterns
