@@ -1,0 +1,75 @@
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add a new ingredient</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="POST" id="newIng">
+          {% csrf_token %}
+          <div>
+            {{ form.as_p }}
+            <input type="submit" value="Submit" />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" hx-include="#newIng" hx-post="{% url 'create_ingredient' %}" hx-target="#ingredientsTable" hx-swap="beforeend" _="on click remove .show from #exampleModal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- 
+<div id="modal-backdrop" class="modal-backdrop fade show" style="display:block;" _="on click remove .show from #modal-backdrop then remove .show from #modal then wait 200ms then remove #modal-backdrop then remove #modal"></div>
+<div id="modal" class="modal fade show" tabindex="-1" style="display:block;">
+	<div class="modal-dialog modal-dialog-centered">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Modal title</h5>
+		</div>
+		<div class="modal-body">
+		  <p>Modal body text goes here.</p>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" _="on click remove .show from #modal-backdrop then remove .show from #modal then wait 200ms then remove #modal-backdrop then remove #modal">Close</button>
+		</div>
+	  </div>
+	</div>
+  </div> -->
+<!-- 
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModal2Label">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        This was rendered by HTMX!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" _="on click hideModal()">Save changes</button>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">HTMX Modal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        This modal was loaded in from the server via HTMX!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close with data-bs-dismiss</button>
+        <button type="button" class="btn btn-primary" _="on click hideModal()">Close with _hs and Bootstrap.js</button>
+      </div>
+    </div>
+  </div>
+</div>
