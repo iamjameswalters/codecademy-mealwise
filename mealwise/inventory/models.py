@@ -5,7 +5,7 @@ from django.urls import reverse, reverse_lazy
 class Ingredient(models.Model):
     name = models.CharField(max_length=50, unique=True)
     quantity = models.FloatField(default=0)
-    unit = models.CharField(max_length=15)
+    unit = models.CharField(max_length=15, default="unit")
     price_per_unit = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
 
     def __str__(self):
