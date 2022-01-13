@@ -192,14 +192,26 @@ class CreateIngredient(LoginRequiredMixin, CreateView):
 #       self.success_url = reverse('ingredients')
 #     return super().post(self, request, *args, **kwargs)
 
-        
-    
+class HtmxCreateIngredient(CreateIngredient):
+  template_name = "htmx/create_ingredient_modal.html"
+  base_template = "full_modal.html"
 
-# class HtmxCreateIngredient(CreateIngredient):
-#   template_name = "htmx/create_ingredient.html"
+  def get_success_url(self):
+    return "/ingredients"
   
-#   def get_success_url(self):
-#     pass
+  def get(self, request, *args, **kwargs):
+    self.extra_context = {'basetemplate': self.base_template}
+    return super().get(self, request, *args, **kwargs)
+
+  def form_valid(self, form):
+    self.object = form.save()
+    response = HttpResponse()
+    response['Hx-Redirect'] = self.get_success_url()
+    return response
+
+  def form_invalid(self, form):
+    self.extra_context['basetemplate'] = 'htmx.html'
+    return super().form_invalid(form)
 
 class CreateMenuItem(LoginRequiredMixin, CreateView):
   template_name = "inventory/create_menu_item.html"
@@ -299,14 +311,6 @@ class UpdateRecipeRequirement(LoginRequiredMixin, UpdateView):
 class HtmxUpdateRecipeRequirement(UpdateRecipeRequirement):
   template_name = "htmx/update_recipe_req.html"
 
-  # def get(self, request, *args, **kwargs):
-  #   self.extra_context = {'current_menu_item': self.kwargs.get(self.pk_url_kwarg)}
-  #   return super().get(self, request, *args, **kwargs)
-
-  # def post(self, request, *args, **kwargs):
-  #   self.extra_context = {'current_menu_item': self.kwargs.get(self.pk_url_kwarg)}
-  #   return super().post(self, request, *args, **kwargs)
-
   def get_success_url(self):
     return reverse('htmx_recipe_req', args=(self.object.pk,))
 
@@ -323,6 +327,20 @@ class DeleteIngredient(LoginRequiredMixin, DeleteView):
   model = models.Ingredient
   success_url = "/ingredients"
   extra_context = {'active_nav_pantry': "active"}
+
+class HtmxDeleteIngredient(DeleteIngredient):
+  template_name = "htmx/delete_ingredient_modal.html"
+  extra_context = {'basetemplate': 'full_modal.html'}
+
+  def get_success_url(self):
+    return "/ingredients"
+
+  def delete(self, request, *args, **kwargs):
+    self.object = self.get_object()
+    # response = HttpResponse()
+    # response['HX-Redirect'] = self.get_success_url()
+    self.object.delete()
+    return render(request, "htmx/delete_ingredient.html")
 
 class DeleteMenuItem(LoginRequiredMixin, DeleteView):
   template_name = "inventory/delete_menu_item.html"

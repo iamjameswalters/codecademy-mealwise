@@ -1,17 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Pantry</h1>
+<div class="d-flex justify-content-between">
+<h1>Pantry</h1> <button class="btn btn-success my-auto" hx-get="{% url 'htmx_create_ingredient' %}" hx-target="#modals-here" _="on htmx:afterOnLoad wait 10ms then showModal()">Create New Ingredient</button>
+</div>
 
 <table class="table">
+  <thead>
   <tr>
     <th>Ingredient</th>
     <th>Quantity</th>
     <th>Price per unit</th>
     <th>Edit Item</th>
   </tr>
-  {% for ingredient in object_list %}
-  <tr hx-target="this" hx-swap="outerHTML">
+  </thead>
+  <tbody id="ingredientsTable">
+  {% for ingredient in object_list|dictsort:"name" %}
+  <tr hx-target="this" hx-swap="outerHTML" id="ing_{{ ingredient.id }}_tr">
     <td>
       {{ ingredient.name }}
     </td>
@@ -24,12 +29,12 @@
     <td>
       <div class="btn-group">
       <button hx-get="{% url 'htmx_update_ingredient' ingredient.id %}" class="btn btn-primary">Edit</button>
-      <a href="{% url 'delete_ingredient' ingredient.id %}" class="btn btn-danger">Delete</a>
+      <button hx-get="{% url 'htmx_delete_ingredient' ingredient.id %}" hx-target="#modals-here" hx-swap="innerHTML" _="on htmx:afterOnLoad wait 10ms then showModal()" class="btn btn-danger">Delete</a>
       </div>
     </td>
   </tr>
   {% endfor %}
+  </tbody>
 </table>
 
-<a href="{% url 'create_ingredient' %}" class="btn mealwise-bg-darkgreen mealwise-white">Create Ingredient Record</a>
 {% endblock %}

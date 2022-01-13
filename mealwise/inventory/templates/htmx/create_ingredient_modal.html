@@ -1,0 +1,34 @@
+{% extends basetemplate %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+  <div class="modal-header">
+    <h5 class="modal-title" id="modalLabel">Create new ingredient record</h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="modal-body" id="errors-here">
+    <form action="{% url 'htmx_create_ingredient' %}" method="POST" id="createIngredientForm" class="form">
+    {% csrf_token %} 
+    {% bootstrap_form form %}
+    </form>
+    </div>
+    <div class="modal-footer">
+      
+      <button
+        class="btn btn-secondary"
+        data-bs-dismiss="modal"
+      >
+        Cancel
+      </button>
+      
+      <button class="btn btn-primary" hx-post="{% url 'htmx_create_ingredient' %}" hx-include="#createIngredientForm">
+       Create
+      </button>
+    </div>
+  </div>
+{% endblock %}
