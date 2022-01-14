@@ -153,13 +153,6 @@ class Menu(ListView):
   model = models.MenuItem
   extra_context = {'active_nav_menu': "active"}
 
-  # def get(self, request):
-  #   if request.htmx:
-  #     self.extra_context['basetemplate'] = 'htmx.html'
-  #   else:
-  #     self.extra_context['basetemplate'] = 'base.html'
-  #   return super().get(self, request)
-
 class RecipeRequirements(LoginRequiredMixin, ListView):
   template_name = "inventory/recipe_requirements.html"
   model = models.RecipeRequirement
@@ -181,16 +174,6 @@ class CreateIngredient(LoginRequiredMixin, CreateView):
   model = models.Ingredient
   form_class = forms.IngredientForm
   extra_context = {'active_nav_pantry': "active"}
-
-#   def get(self, request, *args, **kwargs):
-#     if request.htmx:
-#       self.template_name = 'htmx/create_ingredient.html'
-#     return super().get(self, request, *args, **kwargs)
-
-#   def post(self, request, *args, **kwargs):
-#     if not request.htmx:
-#       self.success_url = reverse('ingredients')
-#     return super().post(self, request, *args, **kwargs)
 
 class HtmxCreateIngredient(CreateIngredient):
   template_name = "htmx/create_ingredient_modal.html"
@@ -282,7 +265,7 @@ class CreatePurchase(CreateView):
 
     return context
 
-  def post(self, request):
+  def post(self, request, *args, **kwargs):
     purchase_item_id = request.POST['menu_item']
     purchase_item = models.MenuItem.objects.get(pk=purchase_item_id)
     for recipe_req in purchase_item.reciperequirement_set.all():
@@ -291,7 +274,30 @@ class CreatePurchase(CreateView):
       purchase_ingredient.save()
     purchase = models.Purchase(menu_item=purchase_item)
     purchase.save()
-    return redirect("/purchases")
+    if request.htmx:
+      response = HttpResponse()
+      response['Hx-Redirect'] = "/purchases"
+      return response
+    else:
+      return redirect("/purchases")
+
+class HtmxCreatePurchase(CreatePurchase):
+  template_name = "htmx/purchase_item_modal.html"
+  base_template = "full_modal.html"
+
+  def get(self, request, *args, **kwargs):
+    menu_item = models.MenuItem.objects.get(pk=self.kwargs.get(self.pk_url_kwarg))
+    self.extra_context = {'current_menu_item': menu_item, 'basetemplate': self.base_template}
+    return super().get(self, request, *args, **kwargs)
+  
+  # def post(self, request, *args, **kwargs):
+  #   return super().post(self, request, *args, **kwargs)
+  
+  # def post(self, request, *args, **kwargs):
+  #   return super().post(self, request, *args, **kwargs)
+    # response = HttpResponse()
+    # response['Hx-Redirect'] = "/purchases"
+    # return response
 
 # Update Views
 
@@ -351,7 +357,7 @@ class HtmxDeleteIngredient(DeleteIngredient):
     # response = HttpResponse()
     # response['HX-Redirect'] = self.get_success_url()
     self.object.delete()
-    return render(request, "htmx/delete_ingredient.html")
+    return render(request, "htmx/delete_table_row.html", {'columns': 4, 'thing': 'Ingredient'})
 
 class DeleteMenuItem(LoginRequiredMixin, DeleteView):
   template_name = "inventory/delete_menu_item.html"
@@ -382,10 +388,18 @@ class HtmxDeleteRecipeRequirement(DeleteRecipeRequirement):
     super().delete(self, request, *args, **kwargs)
     # self.object = self.get_object()
     # self.object.delete()
-    return render(request, 'htmx/delete_recipe_req.html')
+    return render(request, 'htmx/delete_table_row.html', {'columns': 3, 'thing': 'Recipe requirement'})
 
+@method_decorator(csrf_exempt, name='dispatch')
 class DeletePurchase(DeleteView):
   template_name = "inventory/delete_purchase.html"
   model = models.Purchase
   success_url = "/purchases"
   extra_context = {'active_nav_purchases': "active"}
+
+  def delete(self, request, *args, **kwargs):
+    if request.htmx:
+      super().delete(self, request, *args, **kwargs)
+      return render(request, 'htmx/delete_table_row.html', {'columns': 4, 'thing': 'Order'})
+    else:
+      return super().delete(self, request, *args, **kwargs)

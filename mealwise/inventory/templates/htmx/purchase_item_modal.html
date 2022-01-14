@@ -1,0 +1,41 @@
+{% extends basetemplate %}
+
+{% block content %}
+  <div class="modal-header">
+    <h5 class="modal-title" id="modalLabel">Order {{ current_menu_item.name }}</h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form action="{% url 'htmx_create_purchase' current_menu_item.id %}" method="POST" id="purchaseForm">
+      {% csrf_token %}
+      <input type="hidden" class="visually-hidden" name="menu_item" value="{{ current_menu_item.id }}" />
+      <p>Want to place an order for {{ current_menu_item.name }}?</p>
+
+      <p>It costs ${{ current_menu_item.price }}, but you can use unlimited Django Djoubloons.</p>
+      
+      <!-- <input type="submit" value="Delete" /> -->
+    </form>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-bs-dismiss="modal"
+      >
+        Cancel
+      </button>
+      <button
+        class="btn btn-success"
+        hx-post="{% url 'htmx_create_purchase' current_menu_item.id %}"
+        hx-include="#purchaseForm"
+      >
+        Order with Djoubloons
+      </button>
+    </div>
+  </div>
+{% endblock %}
