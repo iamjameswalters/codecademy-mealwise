@@ -53,6 +53,7 @@ htmxpatterns = [
     path('menu/htmx/<pk>/remove', views.HtmxDeleteMenuItem.as_view(), name="htmx_delete_menu_item"),
     path('menu/htmx/<pk>/recipe/add', views.HtmxCreateRecipeRequirement.as_view(), name="htmx_create_recipe_req"),
     path('ingredients/htmx/add', views.HtmxCreateIngredient.as_view(), name="htmx_create_ingredient"),
+    path('ingredients/htmx/add-from-menu-item', views.HtmxCreateIngredientFromMenuItem.as_view(), name="htmx_create_ing_from_menu_item"),
     path('ingredients/htmx/edit/<pk>', views.HtmxUpdateIngredient.as_view(), name="htmx_update_ingredient"),
     path('ingredients/htmx/display/<pk>', views.HtmxIngredient.as_view(), name="htmx_ingredient"),
     path('ingredients/htmx/unit', views.htmx_get_ingredient_unit_view, name="htmx_get_ingredient_unit"),

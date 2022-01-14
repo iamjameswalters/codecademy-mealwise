@@ -1,14 +1,14 @@
 {% load django_bootstrap5 %}
 
-<tr hx-target="this" hx-swap="outerHTML" id="create_form">
+<tr hx-target="this" hx-swap="outerHTML" id="create_form" hx-trigger="NewIngredientRefresh from:body" hx-get="{% url 'htmx_create_recipe_req' current_menu_item %}">
   {% csrf_token %}
   <td><input type="hidden" name="menu_item" value="{{ current_menu_item }}" />
     <label for="id_ingredient" class="visually-hidden">Ingredient</label>
-    <select name="ingredient" id="id_ingredient" required class="form-select" hx-get="{% url 'htmx_get_ingredient_unit' %}" hx-target="#selected_units" hx-swap="innerhtml">
+    <select name="ingredient" id="id_ingredient" required class="form-select d-inline-block me-2" hx-get="{% url 'htmx_get_ingredient_unit' %}" hx-target="#selected_units" hx-swap="innerhtml" style="width: 90%" >
       {% for id, name in form.fields.ingredient.choices %}
       <option value="{{ id }}">{{ name }}</option>
       {% endfor %}
-    </select>
+    </select><button class="btn btn-primary fw-bold fs-4 lh-1" hx-get="{% url 'htmx_create_ing_from_menu_item' %}" hx-target="#modals-here" hx-swap="innerHTML" _="on htmx:afterOnLoad wait 10ms then showModal()">&plus;</button>
     {% bootstrap_form_errors form layout='inline' %} 
     </td>
   <td><input type="number" name="quantity" value="0" step="any" class="form-control" placeholder="Quantity" required="" id="id_quantity" style="width: 60%; display: inline;"><label for="id_quantity" class="ms-2"><span id="selected_units">unit</span>(s)</label></td>

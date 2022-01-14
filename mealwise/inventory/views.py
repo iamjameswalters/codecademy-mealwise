@@ -213,6 +213,17 @@ class HtmxCreateIngredient(CreateIngredient):
     self.extra_context['basetemplate'] = 'htmx.html'
     return super().form_invalid(form)
 
+class HtmxCreateIngredientFromMenuItem(HtmxCreateIngredient):
+  template_name = "htmx/create_ing_from_menu_item_modal.html"
+  success_url = reverse_lazy('htmx_create_recipe_req')
+
+  def form_valid(self, form):
+    self.object = form.save()
+    response = HttpResponse()
+    response['Hx-Trigger'] = "NewIngredientRefresh"
+    response['Hx-Retarget'] = "#dummy"
+    return response
+
 class CreateMenuItem(LoginRequiredMixin, CreateView):
   template_name = "inventory/create_menu_item.html"
   model = models.MenuItem
