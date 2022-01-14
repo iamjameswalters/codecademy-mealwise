@@ -46,7 +46,9 @@
             >
             <a class="nav-link {{ active_nav_menu }}" href="{% url 'menu' %}">Menu</a>
             {% if user.is_authenticated %}
+            {% comment 'The recipes now live on individual menu item pages' %}
             <a class="nav-link {{ active_nav_recipes }}" href="{% url 'recipes' %}">Recipes</a>
+            {% endcomment %}
             <a class="nav-link {{ active_nav_pantry }}" href="{% url 'ingredients' %}">Pantry</a>
             {% endif %}
             <a class="nav-link {{ active_nav_purchases }}" href="{% url 'purchases' %}">Purchases</a>
