@@ -18,7 +18,7 @@
     </form>
     </div>
     <div class="modal-footer">
-      {% if basetemplate == 'full_modal.html' %}
+      {% if basetemplate == 'full_modal.html' or back_function == 'close' %}
       <button
         class="btn btn-secondary"
         data-bs-dismiss="modal"
@@ -33,7 +33,7 @@
         Back
       </button>
       {% endif %}
-      <button class="btn btn-primary" hx-post="{% url 'signup' %}?next={{ next_page }}" hx-include="#signupForm">
+      <button class="btn btn-primary" hx-post="{% url 'signup' %}?next={{ next_page }}&back={{ back_function }}" hx-include="#signupForm">
        Submit
       </button>
     </div>

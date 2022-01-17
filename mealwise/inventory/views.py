@@ -61,6 +61,7 @@ class CreateAccount(SuccessMessageMixin, CreateView):
   success_message = "Successfully created your account."
   template_name = 'registration/signup.html'
   base_template = 'full_modal.html'
+  back_function = 'close'
 
   def form_valid(self, form):
     super().form_valid(form)
@@ -70,19 +71,21 @@ class CreateAccount(SuccessMessageMixin, CreateView):
     if request.htmx:
       next_url = request.GET.get('next', '')
       self.template_name = 'htmx/signup_modal.html'
-      self.extra_context = {'basetemplate': self.base_template, 'next_page': next_url}
+      self.extra_context = {'basetemplate': self.base_template, 'next_page': next_url, 'back_function': self.back_function}
     return super().get(self, request, *args, **kwargs)
 
   def post(self, request, *args, **kwargs):
     if request.htmx:
       next_url = request.GET.get('next', '')
+      back_fx = request.GET.get('back', '')
       self.template_name = 'htmx/signup_modal.html'
-      self.extra_context = {'basetemplate': 'htmx.html', 'next_page': next_url}
+      self.extra_context = {'basetemplate': 'htmx.html', 'next_page': next_url, 'back_function': back_fx}
       self.success_url = reverse_lazy('login_intermodal')
     return super().post(self, request, *args, **kwargs)
 
 class IntermodalCreateAccount(CreateAccount):
   base_template = 'htmx.html'
+  back_function = ''
 
 # Home view
 
