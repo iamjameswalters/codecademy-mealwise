@@ -42,6 +42,14 @@
       ></button>
     </div>
     {% endif %}
+    {% comment %}
+    <div
+    class="alert alert-primary htmx-indicator text-center"
+    role="alert"
+    id="loginIndicator"
+  >Logging in...
+  </div>
+  {% endcomment %}
     <div class="mb-3">
       <label for="username_field" class="form-label">Username</label>
       <input
@@ -49,6 +57,7 @@
         class="form-control"
         id="username_field"
         name="username"
+        _="on keydown[key is 'Enter'] send click to #submitButton"
       />
     </div>
     <div class="mb-3">
@@ -58,7 +67,7 @@
         class="form-control"
         id="password_field"
         name="password"
-      />
+        _="on keydown[key is 'Enter'] send click to #submitButton" />
     </div>
     </form>
     </div>
@@ -75,8 +84,10 @@
       </button>
       <button
         class="btn btn-success"
+        id="submitButton"
         hx-post="{% url 'login' %}?next={{ next_page }}"
         hx-include="#loginForm"
+        _="on htmx:beforeRequest add .disabled to me then put 'Logging in...' into me"
       >
         Login
       </button>
