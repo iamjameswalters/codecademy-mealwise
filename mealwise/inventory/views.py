@@ -15,6 +15,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from . import forms, models
+import plotly.express as px
 
 # Robots.txt view
 
@@ -126,6 +127,11 @@ class ReportView(LoginRequiredMixin, TemplateView):
     # Calculate profit
     profit = total_revenue - cost
     context['profit'] = profit
+
+    # Create plot
+    df = px.data.iris()
+    fig = px.scatter(df, x="sepal_width", y="sepal_length", color="species")
+    context['chart'] = fig.to_html()
 
     # Add active navbar class
     context['active_nav_report'] = 'active'

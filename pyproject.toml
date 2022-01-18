@@ -11,6 +11,7 @@ django-htmx = "^1.6.0"
 django-bootstrap5 = "^21.2"
 Pillow = "^9.0.0"
 django-admin-interface = "^0.18.4"
+plotly = "5.5.0"
 
 [tool.poetry.dev-dependencies]
 
