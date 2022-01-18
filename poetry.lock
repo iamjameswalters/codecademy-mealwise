@@ -42,6 +42,20 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-admin-interface"
+version = "0.18.4"
+description = "django-admin-interface is a modern responsive flat admin interface customizable by the admin itself."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+django-colorfield = ">=0.2,<1.0"
+django-flat-responsive = ">=1.0,<3.0"
+django-flat-theme = ">=1.0,<2.0"
+six = ">=1.9.0,<2.0.0"
+
+[[package]]
 name = "django-bootstrap5"
 version = "21.2"
 description = "Bootstrap 5 for Django"
@@ -52,6 +66,33 @@ python-versions = ">=3.6"
 [package.dependencies]
 beautifulsoup4 = ">=4.8.0"
 Django = ">=2.2"
+
+[[package]]
+name = "django-colorfield"
+version = "0.6.3"
+description = "simple color field for your models with a nice color-picker in the admin-interface."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+Pillow = ">=5.0"
+
+[[package]]
+name = "django-flat-responsive"
+version = "2.0"
+description = "An extension for Django admin that makes interface mobile friendly."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "django-flat-theme"
+version = "1.1.4"
+description = "A flat theme for Django admin interface. Modern, fresh, simple."
+category = "main"
+optional = false
+python-versions = "*"
 
 [[package]]
 name = "django-htmx"
@@ -81,6 +122,14 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "six"
+version = "1.16.0"
+description = "Python 2 and 3 compatibility utilities"
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
+
+[[package]]
 name = "soupsieve"
 version = "2.3.1"
 description = "A modern CSS selector implementation for Beautiful Soup."
@@ -99,7 +148,7 @@ python-versions = ">=3.5"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "2a0ac39147b353863f4b64bd2319c5403a62ae8cb5b01ecf859610c9654da63f"
+content-hash = "19ea256f17fa7f4c2b77871be29d6c805dced6136170209171e75b68c3c6eb2d"
 
 [metadata.files]
 asgiref = [
@@ -114,9 +163,23 @@ django = [
     {file = "Django-3.2.9-py3-none-any.whl", hash = "sha256:e22c9266da3eec7827737cde57694d7db801fedac938d252bf27377cec06ed1b"},
     {file = "Django-3.2.9.tar.gz", hash = "sha256:51284300f1522ffcdb07ccbdf676a307c6678659e1284f0618e5a774127a6a08"},
 ]
+django-admin-interface = [
+    {file = "django-admin-interface-0.18.4.tar.gz", hash = "sha256:86a6c8e68458f7c80e6bdb1b34469193eb3fdc86f6d9289bb7413520e223668c"},
+    {file = "django_admin_interface-0.18.4-py3-none-any.whl", hash = "sha256:97b5a610003ed53a210f5ce7dec0c1494c16c29ab961aafc2b6ea0a5d8121735"},
+]
 django-bootstrap5 = [
     {file = "django-bootstrap5-21.2.tar.gz", hash = "sha256:a354789370593dbf3f7cb74c442f2bab231c2327bdf4349475eecebd79bc1025"},
     {file = "django_bootstrap5-21.2-py3-none-any.whl", hash = "sha256:6cd338ac1efb50b451072ab3b25e29e5a5c8366ae734d8b9537015f7972194a9"},
+]
+django-colorfield = [
+    {file = "django-colorfield-0.6.3.tar.gz", hash = "sha256:441172f8c6024f70b01e3f63195fe83afc554387b34ad999880e86fde989e5af"},
+    {file = "django_colorfield-0.6.3-py3-none-any.whl", hash = "sha256:97625246fb5c4f4a17c9d83b2406a3c98dd9545c40c47741a7b62f7284609910"},
+]
+django-flat-responsive = [
+    {file = "django-flat-responsive-2.0.tar.gz", hash = "sha256:451caa2700c541b52fb7ce2d34d3d8dee9e980cf29f5463bc8a8c6256a1a6474"},
+]
+django-flat-theme = [
+    {file = "django-flat-theme-1.1.4.tar.gz", hash = "sha256:6b522d8c2b5a8228b30947fb002eff2868da076e9beacf3e798410e5c1a2d849"},
 ]
 django-htmx = [
     {file = "django-htmx-1.6.0.tar.gz", hash = "sha256:e985d01831b95ad88d42694f5667ff2732872dcf3334e835eeb0f31dc4a61d46"},
@@ -159,6 +222,10 @@ pillow = [
 pytz = [
     {file = "pytz-2021.3-py2.py3-none-any.whl", hash = "sha256:3672058bc3453457b622aab7a1c3bfd5ab0bdae451512f6cf25f64ed37f5b87c"},
     {file = "pytz-2021.3.tar.gz", hash = "sha256:acad2d8b20a1af07d4e4c9d2e9285c5ed9104354062f275f3fcd88dcef4f1326"},
+]
+six = [
+    {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
+    {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
 ]
 soupsieve = [
     {file = "soupsieve-2.3.1-py3-none-any.whl", hash = "sha256:1a3cca2617c6b38c0343ed661b1fa5de5637f257d4fe22bd9f1338010a1efefb"},

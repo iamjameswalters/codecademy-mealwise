@@ -31,6 +31,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_interface',
+    #'flat_responsive', # only if django version < 2.0
+    #'flat', # only if django version < 1.9
+    'colorfield',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -121,6 +125,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_ROOT = BASE_DIR / 'inventory/static'
 STATIC_URL = '/static/'
 
 # Default primary key field type
@@ -133,3 +138,7 @@ LOGOUT_REDIRECT_URL = 'home'
 
 MEDIA_ROOT = BASE_DIR / 'inventory/media'
 MEDIA_URL = '/media/'
+
+# only if django version >= 3.0
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+SILENCED_SYSTEM_CHECKS = ['security.W019']
