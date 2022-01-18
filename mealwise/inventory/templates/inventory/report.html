@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+{% block extrahead %}
+<script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"
+        crossorigin="anonymous"></script>
+{% endblock %}
 {% block content %}
 <div class="col-6 mx-auto">
   <h1 class="text-center">Report</h1>
@@ -17,6 +21,7 @@
   </tr>
 </table>
 
-{{ chart }}
+{{ chart.div|safe }}
+{{ chart.script|safe }}
 </div>
 {% endblock %}

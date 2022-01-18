@@ -1,3 +1,5 @@
+from bokeh.plotting import figure
+from bokeh.embed import components
 from decimal import Decimal
 from django.shortcuts import redirect, render
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
@@ -15,7 +17,6 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from . import forms, models
-import plotly.express as px
 
 # Robots.txt view
 
@@ -129,9 +130,10 @@ class ReportView(LoginRequiredMixin, TemplateView):
     context['profit'] = profit
 
     # Create plot
-    df = px.data.iris()
-    fig = px.scatter(df, x="sepal_width", y="sepal_length", color="species")
-    context['chart'] = fig.to_html()
+    plot = figure()#toolbar_location=None)
+    plot.circle([1,2], [3,4])
+    script, div = components(plot)
+    context['chart'] = {'script': script, 'div': div}
 
     # Add active navbar class
     context['active_nav_report'] = 'active'
