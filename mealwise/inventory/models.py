@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.db import models
 from django.urls import reverse, reverse_lazy
 
@@ -34,6 +35,12 @@ class MenuItem(models.Model):
             if not ingredient.enough():
                 return False
         return True
+
+    def get_cost(self):
+        cost = Decimal()
+        for recipe_req in self.reciperequirement_set.all():
+            cost += Decimal(recipe_req.quantity) * recipe_req.ingredient.price_per_unit
+        return cost
 
 class RecipeRequirement(models.Model):
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)

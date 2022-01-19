@@ -129,9 +129,46 @@ class ReportView(LoginRequiredMixin, TemplateView):
     profit = total_revenue - cost
     context['profit'] = profit
 
-    # Create plot
-    plot = figure()#toolbar_location=None)
-    plot.circle([1,2], [3,4])
+    # Get last 7 purchases for graph
+    last7_purchases_queryset = models.Purchase.objects.all().order_by('-time')[:7]
+    last7_purchases_list = []
+    if len(last7_purchases_queryset) < 7:
+      difference = 7 - len(last7_purchases_queryset)
+      last7_purchases_list = [0 for i in range(0, difference)]
+    last7_purchases_ordered = reversed(last7_purchases_queryset)
+    for purchase in last7_purchases_ordered:
+      last7_purchases_list.append(purchase)
+
+    # Extract revenues and costs from last 7 purchases
+    last7_revenues = []
+    last7_costs = []
+    for purchase in last7_purchases_list:
+      if purchase == 0:
+        last7_revenues.append(0)
+        last7_costs.append(0)
+      else:
+        last7_revenues.append(purchase.menu_item.price)
+        last7_costs.append(purchase.menu_item.get_cost())
+
+    # Create coordinates for graph
+    x = [i for i in range(1,8)]
+    y1 = [0 for i in range(1,8)]
+    y_revenue = []
+    y_cost = []
+
+    for i in range(0, 7):
+      if i == 0:
+        y_revenue.append(last7_revenues[0])
+        y_cost.append(last7_costs[0])
+      else:
+        y_revenue.append(last7_revenues[i] + y_revenue[i-1])
+        y_cost.append(last7_costs[i] + y_cost[i-1])
+
+    # Create graph
+    plot = figure(height=500, x_minor_ticks=2, toolbar_location=None)
+    plot.varea(x=x, y1=y1, y2=y_revenue, fill_color='#198754',  legend_label='Revenue')
+    plot.varea(x=x, y1=y1, y2=y_cost, fill_color='#DC3545', legend_label='Costs')
+    plot.legend.location = 'top_left'
     script, div = components(plot)
     context['chart'] = {'script': script, 'div': div}
 
