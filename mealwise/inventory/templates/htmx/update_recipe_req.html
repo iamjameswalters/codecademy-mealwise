@@ -15,7 +15,7 @@
     {% bootstrap_form_errors form layout='inline' %} 
     </td>
   <td><input type="number" name="quantity" value="{{ object.quantity }}" step="any" class="form-control" placeholder="Quantity" required="" id="id_quantity" style="width: 60%; display: inline;"><label for="id_quantity" class="ms-2"><span id="selected_units">{{ object.ingredient.unit }}</span>(s)</label></td>
-    <td>
+    <td class="text-end">
       <div class="btn-group">
       <button class="btn btn-success" hx-include='closest tr' hx-post="{% url 'htmx_update_recipe_req' object.menu_item.id %}">Save</button>
       <button class="btn btn-danger" hx-get="{% url 'htmx_recipe_req' object.id %}">Cancel</button>
