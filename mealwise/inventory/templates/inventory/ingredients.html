@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="d-flex justify-content-between p-3 mt-4">
+<div class="d-flex justify-content-between p-3">
   <h1>Pantry</h1> <button class="btn btn-success my-auto" hx-get="{% url 'htmx_create_ingredient' %}"
     hx-target="#modals-here" _="on htmx:afterOnLoad wait 10ms then showModal()">Create New Ingredient</button>
 </div>
