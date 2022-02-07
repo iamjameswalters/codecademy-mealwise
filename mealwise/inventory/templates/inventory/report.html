@@ -1,27 +1,28 @@
 {% extends 'base.html' %}
 {% block extrahead %}
-<script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"
-        crossorigin="anonymous"></script>
+<script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js" crossorigin="anonymous"></script>
 {% endblock %}
 {% block content %}
-<div class="col-6 mx-auto">
-  <h1 class="text-center">Report</h1>
-<table class="table table-hover ">
-  <tr class="table-info">
-<th>Total Revenue <i>(cash coming in)</i></th>
-<th>${{ revenue }}</th>
-  </tr>
-  <tr class="border-3 border-top-0 border-start-0 border-end-0 border-dark">
-    <th>Total Costs <i>(money spent on pantry)</i></th>
-    <th>${{ costs }}</th>
-  </tr>
-  <tr class="table-success">
-    <th>Profit <i>(cash in your pocket!)</i></th>
-    <th>${{ profit }}</th>
-  </tr>
-</table>
-<h2 class="text-center">Last 7 orders:</h2>
-{{ chart.div|safe }}
-{{ chart.script|safe }}
+<div class="col-10 col-md-8 col-lg-6 mx-auto">
+  <h1 class="text-center p-3">Report</h1>
+  <table class="table table-hover ">
+    <tr class="table-info">
+      <th>Total Revenue <i>(cash coming in)</i></th>
+      <th>${{ revenue }}</th>
+    </tr>
+    <tr class="border-3 border-top-0 border-start-0 border-end-0 border-dark">
+      <th>Total Costs <i>(money spent on pantry)</i></th>
+      <th>${{ costs }}</th>
+    </tr>
+    <tr class="table-success">
+      <th>Profit <i>(cash in your pocket!)</i></th>
+      <th>${{ profit }}</th>
+    </tr>
+  </table>
+  <h2 class="text-center">Last 7 orders:</h2>
+  <center class="pb-4 pb-sm-2">
+  {{ chart.div|safe }}
+  </center>
+  {{ chart.script|safe }}
 </div>
 {% endblock %}
