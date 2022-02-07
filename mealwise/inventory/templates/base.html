@@ -34,6 +34,13 @@
     .htmx-request.htmx-indicator {
       display: block;
     }
+
+    footer {
+      position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 5rem;  
+    }
   </style>
   {% block extrahead %} {% endblock %}
 </head>
@@ -96,6 +103,12 @@
     <div class="container px-0 mt-0">{% block content %} {% endblock %}</div>
     <div id="modals-here"></div>
   </div>
+  <footer class="bg-dark text-light px-3 d-flex align-items-center">
+
+    Made with&nbsp;&nbsp;<span class="material-icons-outlined align-bottom">
+  favorite
+  </span>&nbsp;&nbsp;by&nbsp;<a href="https://github.com/iamjameswalters" class="text-light">James Walters</a>
+  </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
