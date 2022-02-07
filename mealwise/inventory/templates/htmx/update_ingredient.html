@@ -1,38 +1,31 @@
 <tr hx-target="this" hx-swap="outerHTML" class="table-active form-floating">
   {% csrf_token %}
-  <!-- <td colspan="4">
-    <table style="width: 100%">
-      <tr> -->
-        <td>
-          <div class="form-floating"><input type="text" class="form-control" value="{{ ingredient.name }}" name="name"
-              id="id_name" required style="max-width: 10em;" /><label for="id_name">Ingredient Name</label></div>
+  <td>
+    <div class="form-floating"><input type="text" class="form-control" value="{{ ingredient.name }}" name="name"
+        id="id_name" required style="max-width: 10em;" /><label for="id_name">Ingredient Name</label></div>
 
-        </td>
-        <td>
-          <div class="form-floating d-inline-block"><input type="number" class="form-control"
-              value="{{ ingredient.quantity }}" name="quantity" id="id_quantity" required
-              style="max-width: 5em;" /><label for="id_quantity">Quantity</label>
-          </div>
-          <div class="form-floating d-inline-block"> <input type="text" class="form-control d-inline "
-              value="{{ ingredient.unit }}" name="unit" id="id_unit" required style="max-width: 5em;"
-              _="on keyup put my.value into #current_units" /><label for="id_unit">Unit</label>(s)
-          </div>
-        </td>
-        <td>
-          <div class="form-floating">$<input type="number" class="form-control d-inline" name="price_per_unit"
-              value="{{ ingredient.price_per_unit }}" step="0.01" required id="id_price_per_unit"
-              style="max-width: 7em;">
-            <label for="id_price_per_unit">Price per unit</label>/ <span id="current_units">{{ ingredient.unit }}</span>
-          </div>
-        </td>
-        <td>
-          <div class="btn-group">
-            <button class="btn btn-success" hx-include='closest tr'
-              hx-post="{% url 'htmx_update_ingredient' ingredient.id %}">Save</button>
-            <button class="btn btn-danger" hx-get="{% url 'htmx_ingredient' ingredient.id %}">Cancel</button>
-          </div>
-        </td>
-      <!-- </tr>
-    </table>
-  </td> -->
+  </td>
+  <td>
+    <div class="form-floating d-inline-block"><input type="number" class="form-control"
+        value="{{ ingredient.quantity }}" name="quantity" id="id_quantity" required style="max-width: 5em;" /><label
+        for="id_quantity">Quantity</label>
+    </div>
+    <div class="form-floating d-inline-block"> <input type="text" class="form-control d-inline "
+        value="{{ ingredient.unit }}" name="unit" id="id_unit" required style="max-width: 5em;"
+        _="on keyup put my.value into #current_units" /><label for="id_unit">Unit</label>(s)
+    </div>
+  </td>
+  <td>
+    <div class="form-floating">$<input type="number" class="form-control d-inline" name="price_per_unit"
+        value="{{ ingredient.price_per_unit }}" step="0.01" required id="id_price_per_unit" style="max-width: 7em;">
+      <label for="id_price_per_unit">Price per unit</label>/ <span id="current_units">{{ ingredient.unit }}</span>
+    </div>
+  </td>
+  <td>
+    <div class="btn-group">
+      <button class="btn btn-success" hx-include='closest tr'
+        hx-post="{% url 'htmx_update_ingredient' ingredient.id %}">Save</button>
+      <button class="btn btn-danger" hx-get="{% url 'htmx_ingredient' ingredient.id %}">Cancel</button>
+    </div>
+  </td>
 </tr>
