@@ -2,38 +2,43 @@
 {% load static %}
 
 {% block content %}
-<h1>Menu Items</h1>
-<div class="row row-cols-1 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 g-4">
-{% for menu_item in object_list %}
-<div class="col">
-<div class="card h-100">
-  <img src="{{ menu_item.image.url }}" class="card-img-top" alt="{{menu_item.name}} image" style="max-height: 250px;">
-  <div class="card-body">
-    <h5 class="card-title">{{ menu_item.name }}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">${{ menu_item.price }}</h6>
-    <p class="card-text">{{ menu_item.description }}</p>
-  </div>
-  <div class="card-footer text-end">
-    {% if user.is_authenticated %}
-    <div class="btn-group " role="group">
-      <a href="{% url 'update_menu_item' menu_item.id %}" class="btn btn-primary">Edit</a>
-      <button hx-get="{% url 'htmx_delete_menu_item' menu_item.id %}" hx-target="#modals-here" hx-swap="innerHTML" _="on htmx:afterOnLoad wait 10ms then showModal()" class="btn btn-danger">Delete</button>
-      </div>
-    {% endif %}
-  {% if menu_item.is_available %}
-  <button hx-get="{% url 'htmx_create_purchase' menu_item.id %}" hx-target="#modals-here" hx-swap="innerHTML" _="on htmx:afterOnLoad wait 10ms then showModal()" class="btn btn-success">Order</button>
-  {% else %}
-  <button class="btn btn-secondary disabled px-1">Out of Stock</button>
+<div class="d-flex justify-content-between p-3">
+  <h1>Menu Items</h1>
+  {% if user.is_authenticated %}
+  <button hx-get="{% url 'htmx_create_menu_item' %}" hx-target="#modals-here"
+    _="on htmx:afterOnLoad wait 10ms then showModal()" class="btn btn-success align-middle my-auto"><span
+      style="font-size: 24px; font-weight: bold; line-height: 19px" class="align-text-top">&plus;</span> Create Menu
+    Item</button>
   {% endif %}
+</div>
+<div class="row px-4 px-sm-0 mx-0 row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4 mb-3">
+  {% for menu_item in object_list %}
+  <div class="col">
+    <div class="card h-100">
+      <img src="{{ menu_item.image.url }}" class="card-img-top" alt="{{menu_item.name}} image"
+        style="max-height: 100%; max-width: 100%;">
+      <div class="card-body">
+        <h5 class="card-title">{{ menu_item.name }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">${{ menu_item.price }}</h6>
+        <p class="card-text">{{ menu_item.description }}</p>
+      </div>
+      <div class="card-footer text-end">
+        {% if user.is_authenticated %}
+        <div class="btn-group " role="group">
+          <a href="{% url 'update_menu_item' menu_item.id %}" class="btn btn-primary">Edit</a>
+          <button hx-get="{% url 'htmx_delete_menu_item' menu_item.id %}" hx-target="#modals-here" hx-swap="innerHTML"
+            _="on htmx:afterOnLoad wait 10ms then showModal()" class="btn btn-danger">Delete</button>
+        </div>
+        {% endif %}
+        {% if menu_item.is_available %}
+        <button hx-get="{% url 'htmx_create_purchase' menu_item.id %}" hx-target="#modals-here" hx-swap="innerHTML"
+          _="on htmx:afterOnLoad wait 10ms then showModal()" class="btn btn-success">Order</button>
+        {% else %}
+        <button class="btn btn-secondary disabled px-1">Out of Stock</button>
+        {% endif %}
+      </div>
+    </div>
   </div>
+  {% endfor %}
 </div>
-</div>
-{% endfor %}
-</div>
-
-{% if user.is_authenticated %}
-<div class="my-4">
-<button hx-get="{% url 'htmx_create_menu_item' %}" hx-target="#modals-here" _="on htmx:afterOnLoad wait 10ms then showModal()" class="btn btn-success align-middle"><span style="font-size: 24px; font-weight: bold; line-height: 19px" class="align-text-top">&plus;</span> Create Menu Item</button>
-</div>
-{% endif %}
 {% endblock %}

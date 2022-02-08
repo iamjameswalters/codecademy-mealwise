@@ -1,5 +1,4 @@
 <tr>
-
   <td>
     {{ object.ingredient.name }}
   </td>
@@ -8,8 +7,11 @@
   </td>
   <td class="text-end">
     <div class="btn-group">
-    <button hx-get="{% url 'htmx_update_recipe_req' object.id %}" hx-target="closest tr" hx-swap="outerHTML" class="btn btn-primary">Edit</button>
-    <button hx-confirm="Are you sure you want to delete this requirement?" hx-post="{% url 'htmx_delete_recipe_req' object.id %}" hx-target="closest tr" hx-swap="outerHTML" class="btn btn-danger">Delete</button>
+      <button hx-get="{% url 'htmx_update_recipe_req' object.id %}" hx-target="closest tr" hx-swap="outerHTML"
+        class="btn btn-primary">Edit</button>
+      <button hx-confirm="Are you sure you want to delete this requirement?"
+        hx-post="{% url 'htmx_delete_recipe_req' object.id %}" hx-target="closest tr" hx-swap="outerHTML"
+        class="btn btn-danger">Delete</button>
     </div>
   </td>
 </tr>

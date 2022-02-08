@@ -1,24 +1,37 @@
 {% load django_bootstrap5 %}
-<tr hx-target="this" hx-swap="outerHTML" id="update_form" hx-trigger="NewIngredientRefresh from:body" hx-get="{% url 'htmx_update_recipe_req' object.id %}">
+<tr hx-target="this" hx-swap="outerHTML" id="update_form" hx-trigger="NewIngredientRefresh from:body"
+  hx-get="{% url 'htmx_update_recipe_req' object.id %}">
   {% csrf_token %}
   <td><input type="hidden" name="menu_item" value="{{ object.menu_item.id }}" />
-    <label for="id_ingredient" class="visually-hidden">Ingredient</label>
-    <select name="ingredient" id="id_ingredient" required class="form-select d-inline-block me-2" hx-get="{% url 'htmx_get_ingredient_unit' %}" hx-target="#selected_units" hx-swap="innerhtml" style="width: 90%">
-      {% for id, name in form.fields.ingredient.choices %}
-      {% if id == object.ingredient.id %}
-      <option value="{{ id }}" selected>{{ name }}</option>
-      {% else %}
-      <option value="{{ id }}">{{ name }}</option>
-      {% endif %}
-      {% endfor %}
-    </select><button class="btn btn-primary fw-bold fs-4 lh-1" hx-get="{% url 'htmx_create_ing_from_menu_item' %}" hx-target="#modals-here" hx-swap="innerHTML" _="on htmx:afterOnLoad wait 10ms then showModal()">&plus;</button>
-    {% bootstrap_form_errors form layout='inline' %} 
-    </td>
-  <td><input type="number" name="quantity" value="{{ object.quantity }}" step="any" class="form-control" placeholder="Quantity" required="" id="id_quantity" style="width: 60%; display: inline;"><label for="id_quantity" class="ms-2"><span id="selected_units">{{ object.ingredient.unit }}</span>(s)</label></td>
-    <td class="text-end">
-      <div class="btn-group">
-      <button class="btn btn-success" hx-include='closest tr' hx-post="{% url 'htmx_update_recipe_req' object.menu_item.id %}">Save</button>
+    <div class="d-grid gap-2 d-md-block form-floating">
+      <select name="ingredient" id="id_ingredient" required
+        class="align-middle form-select d-inline-block me-sm-2 ingredient-selector"
+        hx-get="{% url 'htmx_get_ingredient_unit' %}" hx-target="#selected_units" hx-swap="innerhtml">
+        {% for id, name in form.fields.ingredient.choices %}
+        {% if id == object.ingredient.id %}
+        <option value="{{ id }}" selected>{{ name }}</option>
+        {% else %}
+        <option value="{{ id }}">{{ name }}</option>
+        {% endif %}
+        {% endfor %}
+      </select><label for="id_ingredient">Ingredient</label><button
+        class="align-middle btn btn-primary fw-bold fs-4 lh-1 d-block d-sm-inline"
+        hx-get="{% url 'htmx_create_ing_from_menu_item' %}" hx-target="#modals-here" hx-swap="innerHTML"
+        _="on htmx:afterOnLoad wait 10ms then showModal()">&plus;</button>
+      {% bootstrap_form_errors form layout='inline' %}
+    </div>
+  </td>
+  <td>
+    <div class="form-floating"><input type="number" name="quantity" value="{{ object.quantity }}" step="any"
+        class="form-control" placeholder="Quantity" required="" id="id_quantity"
+        style="width: 60%; min-width: 95px; display: inline;"><label for="id_quantity" class=""><span
+          id="selected_units">#&nbsp;of&nbsp;{{ object.ingredient.unit }}</span>(s)</label>
+  </td>
+  <td class="text-end">
+    <div class="btn-group">
+      <button class="btn btn-success" hx-include='closest tr'
+        hx-post="{% url 'htmx_update_recipe_req' object.menu_item.id %}">Save</button>
       <button class="btn btn-danger" hx-get="{% url 'htmx_recipe_req' object.id %}">Cancel</button>
-      </div>
-    </td> 
+    </div>
+  </td>
 </tr>
