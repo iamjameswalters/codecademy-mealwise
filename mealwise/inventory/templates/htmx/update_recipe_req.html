@@ -24,8 +24,8 @@
   <td>
     <div class="form-floating"><input type="number" name="quantity" value="{{ object.quantity }}" step="any"
         class="form-control" placeholder="Quantity" required="" id="id_quantity"
-        style="width: 60%; min-width: 95px; display: inline;"><label for="id_quantity" class=""><span
-          id="selected_units">#&nbsp;of&nbsp;{{ object.ingredient.unit }}</span>(s)</label>
+        style="width: 60%; min-width: 95px; display: inline;"><label for="id_quantity" class="">#&nbsp;of&nbsp;<span
+          id="selected_units">{{ object.ingredient.unit }}</span>(s)</label>
   </td>
   <td class="text-end">
     <div class="btn-group">
