@@ -33,7 +33,7 @@
         Back
       </button>
       {% endif %}
-      <button class="btn btn-primary" hx-post="{% url 'signup' %}?next={{ next_page }}&back={{ back_function }}" hx-include="#signupForm">
+      <button class="btn btn-action" hx-post="{% url 'signup' %}?next={{ next_page }}&back={{ back_function }}" hx-include="#signupForm">
        Submit
       </button>
     </div>

@@ -25,7 +25,7 @@
     <div class="btn-group">
       <button class="btn btn-success" hx-include='closest tr'
         hx-post="{% url 'htmx_update_ingredient' ingredient.id %}">Save</button>
-      <button class="btn btn-danger" hx-get="{% url 'htmx_ingredient' ingredient.id %}">Cancel</button>
+      <button class="btn btn-secondary" hx-get="{% url 'htmx_ingredient' ingredient.id %}">Cancel</button>
     </div>
   </td>
 </tr>

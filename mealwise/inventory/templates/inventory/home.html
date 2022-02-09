@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="p-5 mb-4 mt-0 mt-sm-4 bg-info rounded-3" id="hero-div">
+<div class="p-5 mb-4 mt-0 mt-sm-4 rounded-3" id="hero-div" style="background-color: #AAFFD7">
   <div class="container py-3">
     <h1 class="display-3 fw-bold text-center">
       meal<span _="init wait 1500ms
-           transition 'color' to #E05043 over 3s
-           ">wise</span><span _="init wait 2500ms
-           transition 'color' to 'green' over 3s" class="material-icons-round display-3 align-bottom">
+           transition 'color' to #fd7e14 over 2s
+           ">wise</span><span class="material-icons-round display-3 align-bottom text-primary">
         dinner_dining
       </span>
     </h1>
@@ -17,7 +16,7 @@
     </div>
     {% if user.is_authenticated %}
     <p class="col-md-8 fs-4 pt-3 mb-5">
-      Hey {{ user.username }}, nice to see you again! <span class="material-icons-round fs-2 align-text-bottom">
+      Hey {{ user.username }}, nice to see you again! <span class="material-icons-round fs-2 align-text-bottom text-warning">
         waving_hand
       </span>
     </p>
@@ -32,11 +31,11 @@
       </span>
     </p>
     <div class="d-grid gap-2 d-lg-block">
-      <a href="{% url 'menu' %}" class="btn btn-primary btn-lg">Place an Order</a> <button hx-get="{% url 'signup' %}"
-        hx-target="#modals-here" class="btn btn-secondary btn-lg"
+      <a href="{% url 'menu' %}" class="btn btn-secondary btn-lg">Place an Order</a> <button hx-get="{% url 'signup' %}"
+        hx-target="#modals-here" class="btn btn-action btn-lg"
         _="on htmx:afterOnLoad wait 10ms then showModal()">Create Restaurateur Account</button> <button
         hx-get="{% url 'login' %}?base=full_modal&next={{ request.path }}" hx-target="#modals-here"
-        class="btn btn-success btn-lg" _="on htmx:afterOnLoad wait 10ms then showModal()">Manage Restaurant</button>
+        class="btn btn-primary btn-lg" _="on htmx:afterOnLoad wait 10ms then showModal()">Manage Restaurant</button>
     </div>
     {% endif %}
   </div>

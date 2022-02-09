@@ -28,7 +28,7 @@
       </td>
       <td>
         <div class="btn-group">
-          <button hx-get="{% url 'htmx_update_ingredient' ingredient.id %}" class="btn btn-primary">Edit</button>
+          <button hx-get="{% url 'htmx_update_ingredient' ingredient.id %}" class="btn btn-action">Edit</button>
           <button hx-get="{% url 'htmx_delete_ingredient' ingredient.id %}" hx-target="#modals-here" hx-swap="innerHTML"
             _="on htmx:afterOnLoad wait 10ms then showModal()" class="btn btn-danger">Delete</a>
         </div>

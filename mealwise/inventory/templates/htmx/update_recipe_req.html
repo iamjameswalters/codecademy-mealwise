@@ -15,7 +15,7 @@
         {% endif %}
         {% endfor %}
       </select><label for="id_ingredient">Ingredient</label><button
-        class="align-middle btn btn-primary fw-bold fs-4 lh-1 d-block d-sm-inline"
+        class="align-middle btn btn-success fw-bold fs-4 lh-1 d-block d-sm-inline"
         hx-get="{% url 'htmx_create_ing_from_menu_item' %}" hx-target="#modals-here" hx-swap="innerHTML"
         _="on htmx:afterOnLoad wait 10ms then showModal()">&plus;</button>
       {% bootstrap_form_errors form layout='inline' %}
@@ -31,7 +31,7 @@
     <div class="btn-group">
       <button class="btn btn-success" hx-include='closest tr'
         hx-post="{% url 'htmx_update_recipe_req' object.menu_item.id %}">Save</button>
-      <button class="btn btn-danger" hx-get="{% url 'htmx_recipe_req' object.id %}">Cancel</button>
+      <button class="btn btn-secondary" hx-get="{% url 'htmx_recipe_req' object.id %}">Cancel</button>
     </div>
   </td>
 </tr>

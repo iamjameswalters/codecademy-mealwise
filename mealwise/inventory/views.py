@@ -166,8 +166,8 @@ class ReportView(LoginRequiredMixin, TemplateView):
 
     # Create graph
     plot = figure(max_height=450, max_width=550, sizing_mode="scale_width", x_minor_ticks=2, toolbar_location=None)
-    plot.varea(x=x, y1=y1, y2=y_revenue, fill_color='#198754',  legend_label='Revenue')
-    plot.varea(x=x, y1=y1, y2=y_cost, fill_color='#DC3545', legend_label='Costs')
+    plot.varea(x=x, y1=y1, y2=y_revenue, fill_color='#20c997',  legend_label='Revenue')
+    plot.varea(x=x, y1=y1, y2=y_cost, fill_color='#fd7e14', legend_label='Costs')
     plot.legend.location = 'top_left'
     script, div = components(plot)
     context['chart'] = {'script': script, 'div': div}

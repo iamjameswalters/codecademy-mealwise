@@ -11,24 +11,38 @@
 }
 
 .link-primary {
-  color: #0d6efd;
+  color: #198754;
 }
 .link-primary:hover, .link-primary:focus {
-  color: #0a58ca;
+  color: #146c43;
 }
 
 .link-secondary {
-  color: #6c757d;
+  color: #fd7e14;
 }
 .link-secondary:hover, .link-secondary:focus {
+  color: #fd9843;
+}
+
+.link-action {
+  color: #3596FF;
+}
+.link-action:hover, .link-action:focus {
+  color: #5dabff;
+}
+
+.link-disabled {
+  color: #6c757d;
+}
+.link-disabled:hover, .link-disabled:focus {
   color: #565e64;
 }
 
 .link-success {
-  color: #198754;
+  color: #20c997;
 }
 .link-success:hover, .link-success:focus {
-  color: #146c43;
+  color: #4dd4ac;
 }
 
 .link-info {
@@ -46,10 +60,10 @@
 }
 
 .link-danger {
-  color: #dc3545;
+  color: #FA5363;
 }
 .link-danger:hover, .link-danger:focus {
-  color: #b02a37;
+  color: #fb7582;
 }
 
 .link-light {
@@ -464,15 +478,23 @@
 }
 
 .border-primary {
-  border-color: #0d6efd !important;
+  border-color: #198754 !important;
 }
 
 .border-secondary {
+  border-color: #fd7e14 !important;
+}
+
+.border-action {
+  border-color: #3596FF !important;
+}
+
+.border-disabled {
   border-color: #6c757d !important;
 }
 
 .border-success {
-  border-color: #198754 !important;
+  border-color: #20c997 !important;
 }
 
 .border-info {
@@ -484,7 +506,7 @@
 }
 
 .border-danger {
-  border-color: #dc3545 !important;
+  border-color: #FA5363 !important;
 }
 
 .border-light {
@@ -1294,6 +1316,16 @@
   color: rgba(var(--bs-secondary-rgb), var(--bs-text-opacity)) !important;
 }
 
+.text-action {
+  --bs-text-opacity: 1;
+  color: rgba(var(--bs-action-rgb), var(--bs-text-opacity)) !important;
+}
+
+.text-disabled {
+  --bs-text-opacity: 1;
+  color: rgba(var(--bs-disabled-rgb), var(--bs-text-opacity)) !important;
+}
+
 .text-success {
   --bs-text-opacity: 1;
   color: rgba(var(--bs-success-rgb), var(--bs-text-opacity)) !important;
@@ -1383,6 +1415,16 @@
 .bg-secondary {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-secondary-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.bg-action {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-action-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.bg-disabled {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-disabled-rgb), var(--bs-bg-opacity)) !important;
 }
 
 .bg-success {

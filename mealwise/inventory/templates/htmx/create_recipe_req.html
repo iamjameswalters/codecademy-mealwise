@@ -11,7 +11,7 @@
         <option value="{{ id }}">{{ name }}</option>
         {% endfor %}
       </select><label for="id_ingredient">Ingredient</label><button
-        class="align-middle btn btn-primary fw-bold fs-4 lh-1 d-block d-sm-inline"
+        class="align-middle btn btn-success fw-bold fs-4 lh-1 d-block d-sm-inline"
         hx-get="{% url 'htmx_create_ing_from_menu_item' %}" hx-target="#modals-here" hx-swap="innerHTML"
         _="on htmx:afterOnLoad wait 10ms then showModal()">&plus;</button>
       {% bootstrap_form_errors form layout='inline' %}
@@ -27,7 +27,7 @@
       <button class="btn btn-success" hx-include='closest tr'
         hx-post="{% url 'htmx_create_recipe_req' current_menu_item %}"
         _="on click remove .disabled from #createRecipeButton">Save</button>
-      <button class="btn btn-danger"
+      <button class="btn btn-secondary"
         _="on click remove #create_form then remove .disabled from #createRecipeButton">Cancel</button>
     </div>
   </td>

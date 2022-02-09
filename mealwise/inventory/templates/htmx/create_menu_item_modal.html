@@ -19,15 +19,13 @@
     <p class="alert alert-info text-center">After creating this menu item,<br />click "Edit" to add a recipe for it.</p>
     </div>
     <div class="modal-footer">
-      
       <button
         class="btn btn-secondary"
         data-bs-dismiss="modal"
       >
         Cancel
       </button>
-      
-      <button class="btn btn-primary" hx-post="{% url 'htmx_create_menu_item' %}" hx-include="#createMenuItemForm">
+      <button class="btn btn-success" hx-post="{% url 'htmx_create_menu_item' %}" hx-include="#createMenuItemForm">
        Create
       </button>
     </div>

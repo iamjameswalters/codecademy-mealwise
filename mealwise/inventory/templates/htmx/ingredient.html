@@ -10,7 +10,7 @@
   </td>
   <td>
     <div class="btn-group">
-    <button hx-get="{% url 'htmx_update_ingredient' ingredient.id %}" class="btn btn-primary">Edit</button>
+    <button hx-get="{% url 'htmx_update_ingredient' ingredient.id %}" class="btn btn-action">Edit</button>
     <a href="{% url 'delete_ingredient' ingredient.id %}" class="btn btn-danger">Delete</a>
     </div>
   </td>
