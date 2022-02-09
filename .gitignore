@@ -133,4 +133,4 @@ mealwise/inventory/templates/inventory/.prettierrc
 /mealwise/inventory/media/menu_images/
 
 # Ignore static files in repo--these will be collected on run
-/mealwise/inventory/static/
+/mealwise/inventory/static/collected_assets/
