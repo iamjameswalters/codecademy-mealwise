@@ -33,6 +33,7 @@
         class="btn btn-success"
         hx-post="{% url 'htmx_create_purchase' current_menu_item.id %}"
         hx-include="#purchaseForm"
+        _="on htmx:beforeRequest add .disabled to me then put 'Ordering...' into me"
       >
         Order with Djoubloons
       </button>
