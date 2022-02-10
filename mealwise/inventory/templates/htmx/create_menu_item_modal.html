@@ -12,7 +12,7 @@
     ></button>
   </div>
   <div class="modal-body" id="errors-here">
-    <form action="{% url 'htmx_create_menu_item' %}" method="POST" id="createMenuItemForm" class="form">
+    <form action="{% url 'htmx_create_menu_item' %}" method="POST" enctype="multipart/form-data" id="createMenuItemForm" class="form">
     {% csrf_token %} 
     {% bootstrap_form form %}
     </form>
@@ -25,7 +25,7 @@
       >
         Cancel
       </button>
-      <button class="btn btn-success" hx-post="{% url 'htmx_create_menu_item' %}" hx-include="#createMenuItemForm">
+      <button class="btn btn-success" hx-encoding="multipart/form-data" hx-post="{% url 'htmx_create_menu_item' %}" hx-include="#createMenuItemForm">
        Create
       </button>
     </div>
