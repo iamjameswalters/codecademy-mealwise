@@ -15,7 +15,7 @@
     </tr>
   </thead>
   <tbody id="ingredientsTable">
-    {% for ingredient in object_list|dictsort:"name" %}
+    {% for ingredient in object_list %}
     <tr hx-target="this" hx-swap="outerHTML" id="ing_{{ ingredient.id }}_tr">
       <td>
         {{ ingredient.name }}

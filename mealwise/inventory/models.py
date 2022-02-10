@@ -9,6 +9,9 @@ class Ingredient(models.Model):
     unit = models.CharField(max_length=15, default="unit")
     price_per_unit = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return "{name} ingredient, quantity: {quan} {unit}(s)".format(name=self.name, quan=self.quantity, unit=self.unit)
 
@@ -20,6 +23,9 @@ class MenuItem(models.Model):
     price = models.DecimalField(max_digits=4, decimal_places=2, default=0.00)
     description = models.CharField(max_length=255)
     image = models.ImageField(upload_to='menu_images/%Y/%m/%d/', default='default.png')
+
+    class Meta:
+        ordering = ['name']
 
     def __str__(self):
         return "{item}: ${price}".format(item=self.name, price=self.price)
@@ -49,6 +55,7 @@ class RecipeRequirement(models.Model):
 
     class Meta:
         unique_together = (('menu_item', 'ingredient'),)
+        ordering = ['ingredient']
 
     def __str__(self):
         return "Recipe: {menu} requires {quan} {unit}(s) of {ing}".format(ing=self.ingredient.name, menu=self.menu_item.name, quan=self.quantity, unit=self.ingredient.unit)
