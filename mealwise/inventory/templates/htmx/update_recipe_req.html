@@ -30,7 +30,7 @@
   <td class="text-end">
     <div class="btn-group">
       <button class="btn btn-success" hx-include='closest tr'
-        hx-post="{% url 'htmx_update_recipe_req' object.menu_item.id %}">Save</button>
+        hx-post="{% url 'htmx_update_recipe_req' object.id %}">Save</button>
       <button class="btn btn-secondary" hx-get="{% url 'htmx_recipe_req' object.id %}">Cancel</button>
     </div>
   </td>
