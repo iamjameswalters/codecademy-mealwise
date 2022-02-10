@@ -1,6 +1,6 @@
 from bokeh.plotting import figure
 from bokeh.embed import components
-from decimal import Decimal
+from decimal import Decimal, getcontext
 from django.shortcuts import redirect, render
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.contrib import messages
@@ -111,7 +111,7 @@ class ReportView(LoginRequiredMixin, TemplateView):
     total_revenue = Decimal()
     for purchase in purchase_queryset:
       total_revenue += purchase.menu_item.price
-    context['revenue'] = total_revenue
+    context['revenue'] = total_revenue.normalize()
     
     # Calculate costs
     cost = Decimal()
@@ -123,11 +123,11 @@ class ReportView(LoginRequiredMixin, TemplateView):
         quantity = Decimal(recipe_requirement.quantity)
         ingredients_cost += ingredient_cost * quantity
       cost += ingredients_cost
-    context['costs'] = cost
+    context['costs'] = cost.normalize()
 
     # Calculate profit
     profit = total_revenue - cost
-    context['profit'] = profit
+    context['profit'] = profit.normalize()
 
     # Get last 7 purchases for graph
     last7_purchases_queryset = models.Purchase.objects.all().order_by('-time')[:7]
