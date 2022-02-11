@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% block extrahead %}
+<style>
+  @media (max-width: 768px) and (min-width: 575.98px) {
+    .edit-control {
+      padding-left: 5px!important;
+      padding-right: 5px!important;
+    }
+  }
+</style>
+{% endblock %}
 {% block content %}
 <div class="d-flex justify-content-between p-3">
   <h1>Menu Items</h1>
@@ -25,9 +34,9 @@
       <div class="card-footer text-end">
         {% if user.is_authenticated %}
         <div class="btn-group " role="group">
-          <a href="{% url 'update_menu_item' menu_item.id %}" class="btn btn-action">Edit</a>
+          <a href="{% url 'update_menu_item' menu_item.id %}" class="btn btn-action edit-control">Edit</a>
           <button hx-get="{% url 'htmx_delete_menu_item' menu_item.id %}" hx-target="#modals-here" hx-swap="innerHTML"
-            _="on htmx:afterOnLoad wait 10ms then showModal()" class="btn btn-danger">Delete</button>
+            _="on htmx:afterOnLoad wait 10ms then showModal()" class="btn btn-danger edit-control">Delete</button>
         </div>
         {% endif %}
         {% if menu_item.is_available %}
