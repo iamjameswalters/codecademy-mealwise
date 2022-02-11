@@ -9,7 +9,7 @@ Visit [iamjameswalters.pythonanywhere.com](https://iamjameswalters.pythonanywher
 
 ## Local Installation
 
-After cloning the project, enter the repository and run `poetry install`. This will install all the project's dependencies within a virtual environment. Once that's done, run `poetry shell` to enter that environment, and navigate to the `mealwise/` directory to run `manage.py runserver`. Have fun! 🙂️
+Dependencies and virtual environments on this project are managed with [Poetry](https://python-poetry.org/). After cloning the project, enter the repository and run `poetry install`. This will install all the project's dependencies within a virtual environment. Once that's done, run `poetry shell` to enter that environment, and navigate to the `mealwise/` directory to run `manage.py runserver`. Have fun! 🙂️
 ___
 ### Image Credits
 
