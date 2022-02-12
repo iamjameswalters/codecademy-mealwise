@@ -111,7 +111,7 @@ class ReportView(LoginRequiredMixin, TemplateView):
     total_revenue = Decimal()
     for purchase in purchase_queryset:
       total_revenue += purchase.menu_item.price
-    context['revenue'] = total_revenue.normalize()
+    context['revenue'] = total_revenue.quantize(Decimal('0.01'))
     
     # Calculate costs
     cost = Decimal()
@@ -123,11 +123,11 @@ class ReportView(LoginRequiredMixin, TemplateView):
         quantity = Decimal(recipe_requirement.quantity)
         ingredients_cost += ingredient_cost * quantity
       cost += ingredients_cost
-    context['costs'] = cost.normalize()
+    context['costs'] = cost.quantize(Decimal('0.01'))
 
     # Calculate profit
     profit = total_revenue - cost
-    context['profit'] = profit.normalize()
+    context['profit'] = profit.quantize(Decimal('0.01'))
 
     # Get last 7 purchases for graph
     last7_purchases_queryset = models.Purchase.objects.all().order_by('-time')[:7]
